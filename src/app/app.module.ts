@@ -17,7 +17,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'register',
     component: InputUserDataFormComponent
   },
   {
@@ -26,6 +26,10 @@ const routes: Routes = [
   },
   { 
     path: 'calender',
+    component: CalenderComponent
+  },
+  { 
+    path: '',
     component: CalenderComponent
   }
 ];
