@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CalenderComponent } from './calender/calender.component';
@@ -58,6 +59,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatDatepickerModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
