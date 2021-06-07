@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { InputUserDataFormComponent } from './input-user-data-form/input-user-data-form.component';
 import { DisplayUserDataComponent } from './display-user-data/display-user-data.component';
 import { Routes, RouterModule } from "@angular/router";
-import {MatDatepickerModule} from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -17,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CalenderComponent } from './calender/calender.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EventComponent } from './event/event.component';
+import { ActivityPreferencesComponent } from './activity-preferences/activity-preferences.component';
 
 const routes: Routes = [
   {
@@ -48,7 +48,8 @@ const routes: Routes = [
     DisplayUserDataComponent,
     CalenderComponent,
     NavbarComponent,
-    EventComponent
+    EventComponent,
+    ActivityPreferencesComponent
   ],
   imports: [
     NgbModule,
