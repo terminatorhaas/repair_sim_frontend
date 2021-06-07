@@ -38,6 +38,10 @@ const routes: Routes = [
     path: 'event',
     component: EventComponent
   },
+  {
+    path: 'activity-preferences',
+    component: ActivityPreferencesComponent
+  },
   { 
     path: '',
     component: CalenderComponent
