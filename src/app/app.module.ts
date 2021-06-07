@@ -12,6 +12,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatSliderModule} from '@angular/material/slider';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CalenderComponent } from './calender/calender.component';
@@ -35,6 +36,10 @@ const routes: Routes = [
   { 
     path: 'event',
     component: EventComponent
+  },
+  {
+    path: 'activity-preferences',
+    component: ActivityPreferencesComponent
   },
   { 
     path: '',
@@ -60,6 +65,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
+    MatSliderModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,

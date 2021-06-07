@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-activity-preferences',
   templateUrl: './activity-preferences.component.html',
