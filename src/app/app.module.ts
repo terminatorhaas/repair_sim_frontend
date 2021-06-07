@@ -14,6 +14,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { HttpClientModule } from '@angular/common/http';
 import { CalenderComponent } from './calender/calender.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ActivityPreferencesComponent } from './activity-preferences/activity-preferences.component';
 
 const routes: Routes = [
   {
@@ -40,7 +41,8 @@ const routes: Routes = [
     InputUserDataFormComponent,
     DisplayUserDataComponent,
     CalenderComponent,
-    NavbarComponent
+    NavbarComponent,
+    ActivityPreferencesComponent
   ],
   imports: [
     BrowserModule,
