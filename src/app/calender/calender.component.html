@@ -92,6 +92,12 @@
   </div>
   
   <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
+  <mat-form-field appearance="fill">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
   
   <br /><br /><br />
   
@@ -215,14 +221,6 @@
       <form>
         <div class="form-group">
           <label for="dateOfBirth">Date of birth</label>
-          <div class="input-group">
-            <mat-form-field appearance="fill">
-              <mat-label>Choose a date</mat-label>
-              <input matInput [matDatepicker]="picker">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-          </div>
         </div>
       </form>
     </div>

@@ -12,6 +12,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatSliderModule} from '@angular/material/slider';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CalenderComponent } from './calender/calender.component';
@@ -60,6 +62,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatDatepickerModule,
+    MatFormFieldModule,
+    MatSliderModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
