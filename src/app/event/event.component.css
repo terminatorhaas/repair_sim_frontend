@@ -1,0 +1,6 @@
+.md-datepicker-calendar-pane {
+    z-index: 1200 !important;
+}
+::ng-deep .cdk-overlay-container{
+    z-index: 1200 !important;
+}

@@ -1,4 +1,4 @@
-
+import { EventComponent } from './../event/event.component';
 import {
   Component,
   ChangeDetectionStrategy,
@@ -16,8 +16,7 @@ import {
   addHours,
 } from 'date-fns';
 import { Subject } from 'rxjs';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -79,46 +78,7 @@ export class CalenderComponent{
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
+  events: CalendarEvent[] = [];
 
   activeDayIsOpen: boolean = true;
 
@@ -190,26 +150,29 @@ export class CalenderComponent{
     this.activeDayIsOpen = false;
   }
 
-
-  //Modal for adding new event
-
-  closeResult = '';
-
-  open(content) {
-    this.modal.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  addNewEvent() {
+    const modalRef = this.modal.open(EventComponent);
+    modalRef.componentInstance.name = 'World';
+    modalRef.result.then(() => { 
+      console.log(modalRef.componentInstance.activityname);
+      console.log(modalRef.componentInstance.dateControl1.value?.toLocaleString());
+      console.log(modalRef.componentInstance.dateControl2.value?.toLocaleString());
+      this.events = [
+        ...this.events,
+        {
+          title: modalRef.componentInstance.activityname,
+          start: modalRef.componentInstance.dateControl1.value,
+          end: modalRef.componentInstance.dateControl2.value,
+          color: colors.red,
+          draggable: true,
+          resizable: {
+            beforeStart: true,
+            afterEnd: true,
+          },
+        },
+      ]; 
+    
+    }, () => { console.log('Backdrop click')})
+    
   }
 }

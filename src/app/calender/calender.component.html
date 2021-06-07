@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar (newItemEvent)="addNewEvent()"></app-navbar>
 <div class="row text-center">
     <div class="col-md-4">
       <div class="btn-group">
@@ -90,15 +90,17 @@
     >
     </mwl-calendar-day-view>
   </div>
+
+  <button class="btn btn-primary float-right" (click)="addNewEvent()"></button>
   
   <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
 
-  
+
   <br /><br /><br />
   
   <h3>
     Edit events
-    <button class="btn btn-primary float-right" (click)="addEvent()">
+    <button class="btn btn-primary float-right" (click)="addNewEvent()">
       Add new
     </button>
     <div class="clearfix"></div>
@@ -204,7 +206,6 @@
       </button>
     </div>
   </ng-template>
-
   <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
@@ -224,4 +225,4 @@
     </div>
   </ng-template>
   
-  <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+ 
