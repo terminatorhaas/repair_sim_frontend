@@ -1,3 +1,4 @@
+
 import {
   Component,
   ChangeDetectionStrategy,
@@ -16,6 +17,7 @@ import {
 } from 'date-fns';
 import { Subject } from 'rxjs';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {
   CalendarEvent,
   CalendarEventAction,

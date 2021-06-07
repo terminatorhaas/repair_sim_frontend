@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { InputUserDataFormComponent } from './input-user-data-form/input-user-data-form.component';
 import { DisplayUserDataComponent } from './display-user-data/display-user-data.component';
 import { Routes, RouterModule } from "@angular/router";
+import {MatDatepickerModule} from '@angular/material';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CalenderComponent } from './calender/calender.component';
@@ -49,6 +51,7 @@ const routes: Routes = [
     EventComponent
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     HttpClientModule,
     FormsModule,
