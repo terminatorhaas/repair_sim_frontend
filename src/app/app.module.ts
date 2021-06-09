@@ -24,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CalenderComponent } from './calender/calender.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EventComponent } from './event/event.component';
+import { LoginComponent } from 'projects/auth/src/public-api';
 import { ActivityPreferencesComponent } from './activity-preferences/activity-preferences.component';
 
 const routes: Routes = [
@@ -50,6 +51,10 @@ const routes: Routes = [
   { 
     path: '',
     component: CalenderComponent
+  },
+  { 
+    path: 'login',
+		component: LoginComponent
   }
 ];
 

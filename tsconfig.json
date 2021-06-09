@@ -1,6 +1,12 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "auth": [
+        "dist/auth/auth",
+        "dist/auth"
+      ]
+    },
     "baseUrl": "./",
     "importHelpers": true,
     "outDir": "./dist/out-tsc",
