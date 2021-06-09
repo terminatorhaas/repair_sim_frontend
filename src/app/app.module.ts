@@ -90,6 +90,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [ { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    NavbarComponent,
+  ]
 })
 export class AppModule { }
