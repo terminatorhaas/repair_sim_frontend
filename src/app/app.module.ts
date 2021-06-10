@@ -13,6 +13,12 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSliderModule} from '@angular/material/slider';
@@ -25,6 +31,7 @@ import { CalenderComponent } from './calender/calender.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EventComponent } from './event/event.component';
 import { ActivityPreferencesComponent } from './activity-preferences/activity-preferences.component';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   {
@@ -72,6 +79,12 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MaterialModule,
     MatDatepickerModule,
+    MatChipsModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatCheckboxModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
