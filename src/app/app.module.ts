@@ -34,36 +34,36 @@ import { EventComponent } from './event/event.component';
 import { LoginComponent } from 'projects/auth/src/public-api';
 import { ActivityPreferencesComponent } from './activity-preferences/activity-preferences.component';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthGuard } from 'projects/auth/src/lib/auth.guard';
+import { MasterComponent } from './shared/master/master.component';
+import { HomeComponent } from './shared/home/home.component';
 
 const routes: Routes = [
   {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'user/:uid',
-    component: DisplayUserDataComponent
-  },
-  { 
-    path: 'calender',
-    component: CalenderComponent
-  },
-  { 
-    path: 'event',
-    component: EventComponent
-  },
-  {
-    path: 'activity-preferences',
-    component: ActivityPreferencesComponent
-  },
-  { 
-    path: '',
-    component: CalenderComponent
-  },
-  { 
-    path: 'login',
-		component: LoginComponent
-  }
+		path: '',
+		component: MasterComponent,
+		canActivate: [AuthGuard],
+		children: [
+			{
+				path: '',
+				component: HomeComponent
+			},
+			{
+				path: 'calender',
+				component: CalenderComponent
+			}
+		]
+	},
+	{
+		path: '',
+		children: [
+			{
+				path: 'login',
+				component: LoginComponent
+			}
+		]
+	},
+	{ path: '**', redirectTo: '' }
 ];
 
 @NgModule({
@@ -71,6 +71,8 @@ const routes: Routes = [
     AppComponent,
     InputUserDataFormComponent,
     DisplayUserDataComponent,
+    MasterComponent,
+    HomeComponent,
     CalenderComponent,
     NavbarComponent,
     EventComponent,
@@ -97,6 +99,7 @@ const routes: Routes = [
     MatNativeDateModule,
     MatFormFieldModule,
     MatSliderModule,
+    RouterModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
