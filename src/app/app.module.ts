@@ -30,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CalenderComponent } from './calender/calender.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EventComponent } from './event/event.component';
+import { LoginComponent } from 'projects/auth/src/public-api';
 import { ActivityPreferencesComponent } from './activity-preferences/activity-preferences.component';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -57,6 +58,10 @@ const routes: Routes = [
   { 
     path: '',
     component: CalenderComponent
+  },
+  { 
+    path: 'login',
+		component: LoginComponent
   }
 ];
 
@@ -98,6 +103,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [ { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+    NavbarComponent,
+  ]
 })
 export class AppModule { }
