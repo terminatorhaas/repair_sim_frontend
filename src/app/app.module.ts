@@ -1,3 +1,4 @@
+import { RegisterComponent } from './../../projects/auth/src/lib/components/register/register.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -30,7 +31,7 @@ import { ActivityPreferencesComponent } from './activity-preferences/activity-pr
 const routes: Routes = [
   {
     path: 'register',
-    component: InputUserDataFormComponent
+    component: RegisterComponent
   },
   {
     path: 'user/:uid',
