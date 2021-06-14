@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, FormControl } from '@angular/forms';
 import { MatChip, MatChipList } from '@angular/material/chips';
+import { untilDestroyed } from '@ngneat/until-destroy';
 
 
 
@@ -9,77 +10,27 @@ import { MatChip, MatChipList } from '@angular/material/chips';
   templateUrl: './activity-preferences.component.html',
   styleUrls: ['./activity-preferences.component.css']
 })
-export class ActivityPreferencesComponent implements OnInit, ControlValueAccessor {
+export class ActivityPreferencesComponent implements OnInit {
 
-  
-  @Input() options: string[] = [];
-  
-  toggleSelection(chip: MatChip) {
-    chip.toggleSelected();
- }
-  constructor() { }
+  options = ['Clothing', 'Shoes', 'Electronics', 'Books', 'Magazines'];
 
- 
-  
-  onChange!: (value: string[]) => void;
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
-  }
-  registerOnTouched(fn: any): void {
-    throw new Error('Method not implemented.');
-  }
-  setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
-  }
-  propagateChange(value: string[]) {
-    if (this.onChange) {
-      this.onChange(value);
-    }
-}
+  chipsControl = new FormControl(['Books']);
 
-@ViewChild(MatChipList)
- chipList!: MatChipList;
-value: string[] = [];
+  chipsControlValue$ = this.chipsControl.valueChanges;
 
-writeValue(value: string[]): void {
-    // When form value set when chips list initialized
-    if (this.chipList && value) {
-      this.selectChips(value);
-    } else if (value) {
-      // When chips not initialized
-      this.value = value;
-    }
-}
+  disabledControl = new FormControl(false);
 
-selectChips(value: string[]) {
-    this.chipList.chips.forEach((chip) => chip.deselect());
-
-    const chipsToSelect = this.chipList.chips.filter((c) =>
-      value.includes(c.value)
-    );
-
-    chipsToSelect.forEach((chip) => chip.select());
+  setChipsValue() {
+    this.chipsControl.setValue(['Shoes', 'Electronics']);
   }
 
-  ngAfterViewInit() {
-    this.selectChips(this.value);
-
-    this.chipList.chipSelectionChanges
-      .pipe(
-        untilDestroyed(this),
-        map((event) => event.source))
-      .subscribe((chip) => {
-        if (chip.selected) {
-          this.value = [...this.value, chip.value];
-        } else {
-          this.value = this.value.filter((o) => o !== chip.value);
-        }
-
-        this.propagateChange(this.value);
+  ngOnInit() {
+    this.disabledControl.valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((val) => {
+        if (val) this.chipsControl.disable();
+        else this.chipsControl.enable();
       });
-  }
-
-  ngOnInit(): void {
   }
 
 }

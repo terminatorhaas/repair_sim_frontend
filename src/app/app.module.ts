@@ -38,6 +38,7 @@ import { AuthGuard } from 'projects/auth/src/lib/auth.guard';
 import { MasterComponent } from './shared/master/master.component';
 import { HomeComponent } from './shared/home/home.component';
 import { WelcomeComponent } from './shared/welcome/welcome.component';
+import { ChipsMultiSelectComponent } from './chips-multi-select/chips-multi-select.component';
 
 const routes: Routes = [
   {
@@ -86,7 +87,8 @@ const routes: Routes = [
     CalenderComponent,
     NavbarComponent,
     EventComponent,
-    ActivityPreferencesComponent
+    ActivityPreferencesComponent,
+    ChipsMultiSelectComponent
   ],
   imports: [
     NgbModule,
