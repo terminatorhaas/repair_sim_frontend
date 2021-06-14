@@ -45,6 +45,10 @@ const routes: Routes = [
     component: WelcomeComponent
   },
   {
+    path: 'activity-preferences',
+    component: WelcomeComponent
+  },
+  {
 		path: '',
 		component: MasterComponent,
 		//canActivate: [AuthGuard],
