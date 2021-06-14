@@ -37,12 +37,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthGuard } from 'projects/auth/src/lib/auth.guard';
 import { MasterComponent } from './shared/master/master.component';
 import { HomeComponent } from './shared/home/home.component';
+import { WelcomeComponent } from './shared/welcome/welcome.component';
 
 const routes: Routes = [
   {
+    path: 'welcome',
+    component: WelcomeComponent
+  },
+  {
 		path: '',
 		component: MasterComponent,
-		canActivate: [AuthGuard],
+		//canActivate: [AuthGuard],
 		children: [
 			{
 				path: '',
@@ -69,6 +74,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
+    WelcomeComponent,
     InputUserDataFormComponent,
     DisplayUserDataComponent,
     MasterComponent,
