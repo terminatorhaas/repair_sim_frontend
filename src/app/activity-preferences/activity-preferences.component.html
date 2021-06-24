@@ -1,12 +1,26 @@
-<h2 style="background-color: azure;"><b>Ihre Interessen</b></h2><br>
+<app-navbar></app-navbar><br>
 
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8"> <div class="alert alert-info">      
+        <strong>Info!</strong> Um die von der App ausgehenden Interessenvorschläge <b>OPTIMAL</b> auf Ihre Interessen anzupassen 
+        makieren Sie bitte Ihre Interessen. Sie können hierbei frei entscheiden, ob Sie eine, zwei oder sogar alle Vorschläge auswählen. 
+        Beachten Sie hierbei nur, dass die von der App vorgeschlagenen Aktivitäten sich auf Ihre hier angegeben Interssen bezieht
+        </div>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8"><app-chips-multi-select [options]="options" [formControl]="chipsControl">
+    </app-chips-multi-select></div>
+    <div class="col-sm-2"></div>
+</div>
+<br><br>
 
-<p>Um die von der App ausgehenden Interessenvorschläge <b>OPTIMAL</b> auf Ihre Interessen anzupassen <br> 
-    makieren Sie bitte Ihre Interessen <br> Die können hierbei frei entscheiden, ob Sie eine, zwei oder sogar alle Vorschläge auswählen. <br> 
-    Beachten Sie hierbei nur, dass die von der App vorgeschlagenen Aktivitäten sich auf Ihre hier angegeben Interssen bezieht</p><br>
-
-<p>Bitte makieren sie ihre Interessen:</p><hr>
-
-
-<app-chips-multi-select [options]="options" [formControl]="chipsControl">
-</app-chips-multi-select>
+<div class="row">
+    <div class="col-sm-5"></div>
+    <div class="col-sm-2"><button type="button" class="btn btn-primary btn-block">Speichern</button></div>
+    <div class="col-sm-5"></div>
+</div>
