@@ -32,7 +32,7 @@ export class AuthService {
 		return this.currentUserSubject.value;
 	}
 
-	login(username: string, password: string) {
+	login(email: string, password: string) {
 		/*
 		return this.http.post<any>('/api/users/login', { username, password }).pipe(
 			map(user => {
@@ -50,8 +50,8 @@ export class AuthService {
 		);
 		*/
 		return this.http.post<any>('/api/users/login', {
-			"email": "man@fred.com",
-			"passwort": "Busfahrer***"
+			"email": email,
+			"passwort": password
 		}).pipe(
 			map(access_token => {
 				// login successful if there's a jwt token in the response

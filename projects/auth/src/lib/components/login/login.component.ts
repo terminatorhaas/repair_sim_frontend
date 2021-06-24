@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit() {
 		this.loginForm = this.formBuilder.group({
-			username: ['', Validators.required],
+			email: ['', Validators.required],
 			password: ['', Validators.required]
 		});
 
@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
 		// get login status
 		console.log("currentUser"+ this.authService.currentUserValue)
 		if(this.authService.currentUserValue!=null){
-			console.log("logged in?!")
 			this.router.navigate(["/"]);
 		}
 
@@ -51,7 +50,7 @@ export class LoginComponent implements OnInit {
 		}
 
 		this.authService
-			.login(this.f.username.value, this.f.password.value)
+			.login(this.f.email.value, this.f.password.value)
 			.pipe(first())
 			.subscribe(
 				data => {
