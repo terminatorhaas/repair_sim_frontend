@@ -62,7 +62,10 @@ export class AuthService {
 					localStorage.setItem('currentUser', JSON.stringify(access_token));
 					//this.currentUserSubject.next(user);
 				}
-
+				this.currentUserSubject = new BehaviorSubject<ApplicationUser>(
+					JSON.parse(localStorage.getItem('currentUser'))
+				);
+				this.currentUser = this.currentUserSubject.asObservable();
 				return access_token;
 			})
 		);
@@ -72,6 +75,7 @@ export class AuthService {
 	logout() {
 		// remove user from local storage to log user out
 		localStorage.removeItem('currentUser');
+		this.currentUser=null;
 		this.currentUserSubject.next(null);
 	}
 }

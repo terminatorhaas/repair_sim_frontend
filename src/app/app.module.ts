@@ -13,19 +13,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatSliderModule} from '@angular/material/slider';
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CalenderComponent } from './calender/calender.component';
@@ -47,33 +47,28 @@ const routes: Routes = [
   },
   {
     path: 'activity-preferences',
-    component: ActivityPreferencesComponent
+    component: WelcomeComponent
   },
   {
-		path: '',
-		component: MasterComponent,
-		canActivate: [AuthGuard],
-		children: [
-			{
-				path: '',
-				component: HomeComponent
-			},
-			{
-				path: 'calender',
-				component: CalenderComponent
-			}
-		]
-	},
-	{
-		path: '',
-		children: [
-			{
-				path: 'login',
-				component: LoginComponent
-			}
-		]
-	},
-	{ path: '**', redirectTo: '' }
+    path: '',
+    component: MasterComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'calender',
+        component: CalenderComponent
+      }
+    ]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
@@ -118,7 +113,7 @@ const routes: Routes = [
     }),
     RouterModule.forRoot(routes)
   ],
-  providers: [ { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
+  providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
   bootstrap: [AppComponent],
   exports: [
     NavbarComponent,

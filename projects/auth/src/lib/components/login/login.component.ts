@@ -27,11 +27,15 @@ export class LoginComponent implements OnInit {
 			password: ['', Validators.required]
 		});
 
-		// reset login status
-		this.authService.logout();
-
 		// get return url from route parameters or default to '/'
 		this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+		// get login status
+		console.log("currentUser"+ this.authService.currentUserValue)
+		if(this.authService.currentUserValue!=null){
+			console.log("logged in?!")
+			this.router.navigate(["/"]);
+		}
+
 	}
 
 	get f() {
@@ -48,11 +52,13 @@ export class LoginComponent implements OnInit {
 
 		this.authService
 			.login(this.f.username.value, this.f.password.value)
-//			.pipe(first())
+			.pipe(first())
 			.subscribe(
 				data => {
 					this.error = '';
+					console.log("current User: " + this.authService.currentUserValue);
 					this.router.navigate([this.returnUrl]);
+					console.log(this.returnUrl);
 				},
 				error => {
 					this.error = error;

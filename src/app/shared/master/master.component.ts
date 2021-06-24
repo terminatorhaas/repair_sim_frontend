@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
 	selector: 'app-master',
 	template: `
-    <app-navbar></app-navbar>
+    <app-navbar (newItemEvent)="logout($event)" [loggedIn]="loggedIn"></app-navbar>
     <section>
       <div class="container">
         <router-outlet></router-outlet>
@@ -38,7 +38,7 @@ export class MasterComponent implements OnInit {
 			
 		)
 	}
-	public logout(): void {
+	public logout(newItemEvent: boolean): void {
 		this.authService.logout();
 		this.router.navigate(['/login']);
 	}
