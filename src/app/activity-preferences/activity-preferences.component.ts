@@ -12,7 +12,7 @@ import { untilDestroyed } from '@ngneat/until-destroy';
 })
 export class ActivityPreferencesComponent implements OnInit {
 
-  options = ['Clothing', 'Shoes', 'Electronics', 'Books', 'Magazines'];
+  options = ['Ausdauersport', 'Wassersport', 'Kraftsport', 'Kampfsport', 'Mental Health', 'Ballsport', 'Denksport', 'Freizeitausflüge', 'Familie & Freunde'];
 
   chipsControl = new FormControl(['Books']);
 

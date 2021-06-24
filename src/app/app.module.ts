@@ -47,7 +47,7 @@ const routes: Routes = [
   },
   {
     path: 'activity-preferences',
-    component: WelcomeComponent
+    component: ActivityPreferencesComponent
   },
   {
 		path: '',
