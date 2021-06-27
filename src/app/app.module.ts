@@ -1,4 +1,3 @@
-import { RegisterComponent } from './../../projects/auth/src/lib/components/register/register.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -31,14 +30,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { CalenderComponent } from './calender/calender.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EventComponent } from './event/event.component';
-import { LoginComponent } from 'projects/auth/src/public-api';
 import { ActivityPreferencesComponent } from './activity-preferences/activity-preferences.component';
 import { MatIconModule } from '@angular/material/icon';
-import { AuthGuard } from 'projects/auth/src/lib/auth.guard';
 import { MasterComponent } from './shared/master/master.component';
 import { HomeComponent } from './shared/home/home.component';
 import { WelcomeComponent } from './shared/welcome/welcome.component';
 import { ChipsMultiSelectComponent } from './chips-multi-select/chips-multi-select.component';
+import { AuthGuard } from './auth/auth.guard';
+import { LoginComponent } from './auth/components/login/login.component';
+import { RegisterComponent } from './auth/components/register/register.component';
 
 const routes: Routes = [
   {
