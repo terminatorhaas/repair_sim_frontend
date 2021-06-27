@@ -72,6 +72,21 @@ export class AuthService {
 	
 	}
 
+	register(username: string, email: string, password: string, vorname: string, nachname: string, zeitzone: string, adminFlag: string) {
+		return this.http.post<any>('/api/users/', {
+			"username": username,
+    		"email": email,
+    		"passwort": password,
+    		"vorname": vorname,
+    		"nachname": nachname,
+    		"zeitzone": zeitzone,
+    		"adminFlag": adminFlag
+		}).subscribe(data => {
+			this.login(email, password);
+		})
+	
+	}
+
 	logout() {
 		// remove user from local storage to log user out
 		localStorage.removeItem('currentUser');
