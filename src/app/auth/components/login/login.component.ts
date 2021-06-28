@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
@@ -14,12 +14,32 @@ export class LoginComponent implements OnInit {
 	returnUrl: string;
 	error: string;
 
+	error_messages = {
+		'email': [
+		  { type: 'required', message: 'Email is required.' },
+		  { type: 'email', message: 'please enter a valid email address.' }
+		],
+	
+		'password': [
+		  { type: 'required', message: 'Passwort is required.' }
+		],
+	}
 	constructor(
 		private formBuilder: FormBuilder,
 		private route: ActivatedRoute,
 		private router: Router,
 		private authService: AuthService
-	) {}
+	) {
+		this.loginForm = this.formBuilder.group({
+			email: new FormControl('', Validators.compose([
+			  Validators.required,
+			  Validators.email
+			])),
+			password: new FormControl('', Validators.compose([
+			  Validators.required
+			])),
+		});
+	}
 
 	ngOnInit() {
 		this.loginForm = this.formBuilder.group({

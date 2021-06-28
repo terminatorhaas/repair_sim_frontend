@@ -1,26 +1,38 @@
 <app-navbar></app-navbar>
-
 <div class="container">
-  <div class ="row">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="off">
-    <div class="form-group">
-      <label for="email">E-Mail</label>
-      <input type="text" class="form-control" id="email" formControlName="email" placeholder="E-Mail" />
-      <div *ngIf="loginForm.get('email').hasError">
+
+  <div style="margin: 30px">
+    <h1 class="ion-text-center">Login</h1>
+
+    <form [formGroup]="loginForm">
+      <div class="form-group">
+        <label>E-Mail</label>
+        <input class="form-control" formControlName="email" type="text" />
       </div>
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password" />
-      <div *ngIf="submitted && f.password.errors">
-        <small *ngIf="f.password.errors.required" class="form-text text-muted">Password is required</small>
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.email">
+          <div class="error-message"
+            *ngIf="loginForm.get('email').hasError(error.type) && (loginForm.get('email').dirty || loginForm.get('email').touched)">
+            {{ error.message }}
+          </div>
+        </ng-container>
       </div>
-    </div>
-    <div *ngIf="error" class="my-3">
-      <small class="form-text text-muted">{{ error | json }}</small>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    
-  </form>
-</div>
+
+      <div class="form-group">
+        <label>Passwort*</label>
+        <input class="form-control" formControlName="password" type="password" />
+      </div>
+      <div class="error-messages">
+        <ng-container *ngFor="let error of error_messages.password">
+          <div class="error-message"
+            *ngIf="loginForm.get('password').hasError(error.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+            {{ error.message }}
+          </div>
+        </ng-container>
+      </div>
+      <pre>
+      </pre>
+      <button class="form-control btn btn-primary" [disabled]="!loginForm.valid" (click)="onSubmit()">SignIn</button>
+    </form>
+  </div>
 </div>

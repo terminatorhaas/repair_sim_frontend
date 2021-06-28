@@ -1,9 +1,9 @@
 import { ActivityPreferencesComponent } from './activity-preferences/activity-preferences.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { WelcomeComponent } from './shared/welcome/welcome.component';
-import { MasterComponent } from './shared/master/master.component';
-import { HomeComponent } from './shared/home/home.component';
+import { WelcomeComponent } from './shared/components/welcome/welcome.component';
+import { MasterComponent } from './shared/components/master/master.component';
+import { HomeComponent } from './shared/components/home/home.component';
 import { CalenderComponent } from './calender/calender.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/components/login/login.component';

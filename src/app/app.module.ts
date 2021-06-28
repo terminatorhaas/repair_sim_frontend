@@ -1,11 +1,11 @@
+import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { InputUserDataFormComponent } from './input-user-data-form/input-user-data-form.component';
-import { DisplayUserDataComponent } from './display-user-data/display-user-data.component';
 import { Routes, RouterModule } from "@angular/router";
 import { MaterialModule } from './material.module';
 
@@ -29,14 +29,14 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 import { HttpClientModule } from '@angular/common/http';
 import { CalenderComponent } from './calender/calender.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { EventComponent } from './event/event.component';
 import { ActivityPreferencesComponent } from './activity-preferences/activity-preferences.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MasterComponent } from './shared/master/master.component';
-import { HomeComponent } from './shared/home/home.component';
-import { WelcomeComponent } from './shared/welcome/welcome.component';
-import { ChipsMultiSelectComponent } from './chips-multi-select/chips-multi-select.component';
+import { MasterComponent } from './shared/components/master/master.component';
+import { HomeComponent } from './shared/components/home/home.component';
+import { WelcomeComponent } from './shared/components/welcome/welcome.component';
+import { ChipsMultiSelectComponent } from './shared/components/chips-multi-select/chips-multi-select.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
@@ -79,18 +79,13 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent,
-    InputUserDataFormComponent,
-    DisplayUserDataComponent,
-    MasterComponent,
-    HomeComponent,
     CalenderComponent,
-    NavbarComponent,
     EventComponent,
     ActivityPreferencesComponent,
-    ChipsMultiSelectComponent
   ],
   imports: [
+    SharedModule,
+    AuthModule,
     NgbModule,
     BrowserModule,
     HttpClientModule,
@@ -121,7 +116,6 @@ const routes: Routes = [
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
   bootstrap: [AppComponent],
   exports: [
-    NavbarComponent,
   ]
 })
 export class AppModule { }

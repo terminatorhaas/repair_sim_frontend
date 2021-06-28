@@ -53,6 +53,28 @@ export class CalenderComponent{
 
   viewDate: Date = new Date();
 
+  constructor(private modal: NgbModal) { console.log("Hello From Calender")}
+
+  ngOnInit(): void {
+
+    this.events = [
+      ...this.events,
+      {
+        id: 3,
+        title: "Coca ziehen",
+        start: new Date("2021-06-29T06:00:00.000Z"),
+        end: new Date("2021-06-29T10:00:00.000Z"),
+        color: colors.red,
+        draggable: true,
+        resizable: {
+          beforeStart: true,
+          afterEnd: true,
+        },
+      },
+    ]; 
+  }
+
+
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -82,7 +104,6 @@ export class CalenderComponent{
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal) { console.log("Hello From Calender")}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -140,6 +161,7 @@ export class CalenderComponent{
 
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);
+    console.log("delete Event")
   }
 
   setView(view: CalendarView) {
@@ -173,6 +195,7 @@ export class CalenderComponent{
       ]; 
     
     }, () => { console.log('Backdrop click')})
+
     
   }
 }
