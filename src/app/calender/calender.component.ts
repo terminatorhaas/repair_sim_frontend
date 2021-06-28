@@ -15,7 +15,7 @@ import {
   isSameMonth,
   addHours,
 } from 'date-fns';
-import { ConnectableObservable, Subject } from 'rxjs';
+import { ConnectableObservable, lastValueFrom, Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
@@ -23,6 +23,7 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
+import { HttpClient } from '@angular/common/http';
 
 const colors: any = {
   red: {
@@ -38,6 +39,13 @@ const colors: any = {
     secondary: '#FDF1BA',
   },
 };
+
+export class Calender {
+  calenderID: number;
+  bezeichnung: string;
+}
+
+
 @Component({
   selector: 'app-calender',
   templateUrl: './calender.component.html',
@@ -53,33 +61,51 @@ export class CalenderComponent{
 
   viewDate: Date = new Date();
 
-  constructor(private modal: NgbModal) { console.log("Hello From Calender")}
+  calender: Calender;
+
+  constructor(private modal: NgbModal,
+    private readonly http: HttpClient,
+    ) { console.log("Hello From Calender")
+    this.calender = new Calender()}
 
   ngOnInit(): void {
 
-    this.events = [
-      ...this.events,
-      {
-        id: 3,
-        title: "Coca ziehen",
-        start: new Date("2021-06-29T06:00:00.000Z"),
-        end: new Date("2021-06-29T10:00:00.000Z"),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ]; 
+    this.loadEvents().then(res2 => {
+      console.log(res2)
+      res2.forEach((ereignis) => {
+        this.events = [
+          ...this.events,
+          {
+            id: ereignis.ereignisId,
+            title: ereignis.bezeichnung,
+            start: new Date(ereignis.beginnDatumUhr),
+            end: new Date(ereignis.endeDatumUhr),
+            color: colors.red,
+            draggable: true,
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
+          },
+        ];
+      }); 
+    });
   }
 
+  async loadEvents() :Promise<any>{
+    const res1 = await lastValueFrom(this.http.get<Calender>('api/users/' +'terminatorhaas' + '/Kalender/', {}));
+    this.calender.calenderID = res1[0].kalenderID;
+    console.log(res1)
+    const res2 = await lastValueFrom(this.http.get<any>('api/ereignis/kalender/' + res1[0].kalenderID,{}));
+    return res2;
+  }
 
   modalData: {
     action: string;
     event: CalendarEvent;
   };
 
+  /*
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -97,6 +123,7 @@ export class CalenderComponent{
       },
     },
   ];
+  */
 
   refresh: Subject<any> = new Subject();
 
@@ -106,17 +133,26 @@ export class CalenderComponent{
 
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+
+    console.log(date);
     if (isSameMonth(date, this.viewDate)) {
       if (
         (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
         events.length === 0
       ) {
         this.activeDayIsOpen = false;
+        this.addNewEvent(new Date(startOfDay(date)),new Date((new Date(startOfDay(date))).getTime() + 30*60000));
       } else {
         this.activeDayIsOpen = true;
       }
       this.viewDate = date;
     }
+    //this.addNewEvent(new Date(startOfDay(date)),new Date((new Date(startOfDay(date))).getTime() + 30*60000))
+  }
+
+  hourClicked( event ){
+    console.log(event.date);
+    this.addNewEvent(event.date,new Date(event.date.getTime() + 30*60000))
   }
 
   eventTimesChanged({
@@ -162,6 +198,12 @@ export class CalenderComponent{
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);
     console.log("delete Event")
+    console.log(eventToDelete.id)
+    console.log(this.calender.calenderID)
+    this.http.delete<any>('api/ereignis/' + eventToDelete.id + '/' + this.calender.calenderID,{ }).subscribe(data => {
+      console.log(data);
+    }
+    );
   }
 
   setView(view: CalendarView) {
@@ -172,27 +214,43 @@ export class CalenderComponent{
     this.activeDayIsOpen = false;
   }
 
-  addNewEvent() {
+  addNewEvent(start: Date, end: Date) {
     const modalRef = this.modal.open(EventComponent);
-    modalRef.componentInstance.name = 'World';
+    modalRef.componentInstance.name = 'add Event';
+    modalRef.componentInstance.date1 = start;
+    modalRef.componentInstance.date2 = end;
     modalRef.result.then(() => { 
       console.log(modalRef.componentInstance.activityname);
       console.log(modalRef.componentInstance.dateControl1.value?.toLocaleString());
       console.log(modalRef.componentInstance.dateControl2.value?.toLocaleString());
-      this.events = [
-        ...this.events,
-        {
-          title: modalRef.componentInstance.activityname,
-          start: modalRef.componentInstance.dateControl1.value,
-          end: modalRef.componentInstance.dateControl2.value,
-          color: colors.red,
-          draggable: true,
-          resizable: {
-            beforeStart: true,
-            afterEnd: true,
+
+      console.log("Kalender Id:" + this.calender.calenderID);
+      this.http.post<any>('api/ereignis',{
+        "aktivitaetenId": 1,
+        "kalenderId": this.calender.calenderID,
+        "bezeichnung": modalRef.componentInstance.activityname,
+        "beginnDatumUhr": new Date(modalRef.componentInstance.dateControl1.value).toISOString(),
+        "endeDatumUhr": new Date(modalRef.componentInstance.dateControl2.value).toISOString()
+      }).subscribe(data =>{
+        console.log(data);
+        this.events = [
+          ...this.events,
+          {
+            id: data.ereignisId,
+            title: data.bezeichnung,
+            start: new Date(data.beginnDatumUhr),
+            end: new Date(data.endeDatumUhr),
+            color: colors.red,
+            draggable: true,
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
           },
-        },
-      ]; 
+        ]; 
+
+
+      });
     
     }, () => { console.log('Backdrop click')})
 

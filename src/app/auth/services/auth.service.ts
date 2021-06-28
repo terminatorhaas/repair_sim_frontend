@@ -6,7 +6,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 export interface ApplicationUser {
 	access_token: string;
@@ -49,11 +49,13 @@ export class AuthService {
 			})
 		);
 		*/
+		console.log("logging in..");
 		return this.http.post<any>('/api/users/login', {
 			"email": email,
 			"passwort": password
 		}).pipe(
 			map(access_token => {
+				console.log(access_token);
 				// login successful if there's a jwt token in the response
 				if (access_token) {
 					// store; user; details; and; jwt; token in local
@@ -82,8 +84,15 @@ export class AuthService {
     		"zeitzone": zeitzone,
     		"adminFlag": adminFlag
 		}).subscribe(data => {
-			this.login(email, password);
-		})
+			console.log("email" + email)
+			console.log("email" + password)
+			this.http.post<any>('/api/kalender/', { "bezeichnung": "Standard" }).subscribe(data => {
+				console.log("Kalender Id" + data.kalenderID)
+				console.log("Kalender Id" + username)
+				this.http.put<any>('/api/users/' + username + '/Kalender/' + data.kalenderID, {}).subscribe(data=> {});
+			});
+		});
+		
 	
 	}
 
@@ -91,5 +100,9 @@ export class AuthService {
 		// remove user from local storage to log user out
 		localStorage.removeItem('currentUser');
 		this.currentUserSubject.next(null);
+	}
+
+	timeout(ms) { //pass a time in milliseconds to this function
+		return new Promise(resolve => setTimeout(resolve, ms));
 	}
 }

@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { waitForAsync } from '@angular/core/testing';
 import { FormGroup, FormControl, FormBuilder, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -51,7 +53,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     private authService: AuthService,
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private router: Router,
   ) {
     this.loginForm = this.formBuilder.group({
       fname: new FormControl('', Validators.compose([
@@ -68,7 +71,7 @@ export class RegisterComponent implements OnInit {
       ])),
       username: new FormControl('', Validators.compose([
         Validators.required,
-        this.checkUsernameTaken(),
+        //this.checkUsernameTaken(),
         Validators.minLength(6),
         Validators.maxLength(30)
       ])),
@@ -114,6 +117,19 @@ export class RegisterComponent implements OnInit {
     console.log("Sign me Up")
     this.authService.register(this.loginForm.controls.username.value, this.loginForm.controls.email.value, this.loginForm.controls.password.value, this.loginForm.controls.fname.value,
                               this.loginForm.controls.lname.value, new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split('GMT')[1], "0");
+    this.timeout(1000).then(() =>{
+      this.authService
+			.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
+			.pipe(first())
+			.subscribe(
+				data => {
+					console.log("current User: " + this.authService.currentUserValue);
+					this.router.navigate(['/calender']);
+				},
+				error => {
+				}
+			);
+    });
     
   }
 
@@ -135,6 +151,9 @@ export class RegisterComponent implements OnInit {
   	});
   }
   */
+  timeout(ms) { //pass a time in milliseconds to this function
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
   
 
