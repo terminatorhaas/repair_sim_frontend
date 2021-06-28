@@ -113,7 +113,7 @@ export class RegisterComponent implements OnInit {
   signup(){
     console.log("Sign me Up")
     this.authService.register(this.loginForm.controls.username.value, this.loginForm.controls.email.value, this.loginForm.controls.password.value, this.loginForm.controls.fname.value,
-                              this.loginForm.controls.lname.value, new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split(' ')[2], "0");
+                              this.loginForm.controls.lname.value, new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split('GMT')[1], "0");
     
   }
 

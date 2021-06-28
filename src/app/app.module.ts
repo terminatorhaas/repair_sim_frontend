@@ -27,7 +27,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CalenderComponent } from './calender/calender.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { EventComponent } from './event/event.component';
@@ -40,6 +40,8 @@ import { ChipsMultiSelectComponent } from './shared/components/chips-multi-selec
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
+import { JwtInterceptor } from './auth/services/jwt-interceptor';
+import { ErrorInterceptor } from './auth/services/error.interceptor';
 
 const routes: Routes = [
   {
@@ -113,7 +115,10 @@ const routes: Routes = [
     }),
     AppRoutingModule
   ],
-  providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }],
+  providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    //{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
   exports: [
   ]
