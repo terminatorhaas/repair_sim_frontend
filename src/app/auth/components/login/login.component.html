@@ -32,7 +32,14 @@
       </div>
       <pre>
       </pre>
-      <button class="form-control btn btn-primary" [disabled]="!loginForm.valid" (click)="onSubmit()">SignIn</button>
+
+      <div class="form-group">
+        <button class="form-control btn btn-primary" [disabled]="!loginForm.valid" (click)="onSubmit()">Login</button>
+      </div><br>
+
+      <div class="alert alert-info">
+        <strong>Info!</strong> In case you do not have a account yet. Register  <a routerLink="/register" >here</a> for free!
+      </div>
     </form>
   </div>
 </div>

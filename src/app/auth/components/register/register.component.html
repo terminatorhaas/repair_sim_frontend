@@ -78,6 +78,11 @@
 					</div>
 				</ng-container>
 			</div>
+			<div class="error-messages" *ngIf="!passwordmatches">
+				<div class="error-message" >
+						password doesnt match.
+				</div>
+			</div>
       <pre>
       </pre>
 			<button class="form-control btn btn-primary" [disabled]="!loginForm.valid" (click)="signup()">Signup</button>

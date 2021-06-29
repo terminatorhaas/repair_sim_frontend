@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { isNull } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { waitForAsync } from '@angular/core/testing';
 import { FormGroup, FormControl, FormBuilder, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
@@ -14,6 +15,8 @@ import { AuthService } from '../../services/auth.service';
 export class RegisterComponent implements OnInit {
 
   loginForm: FormGroup;
+
+  passwordmatches: boolean = true;
 
   error_messages = {
     'fname': [
@@ -41,12 +44,11 @@ export class RegisterComponent implements OnInit {
     'password': [
       { type: 'required', message: 'password is required.' },
       { type: 'minlength', message: 'password length.' },
-      { type: 'maxlength', message: 'password length.' }
+      { type: 'maxlength', message: 'password length.' },
+      { type: 'passwordNotMatch', message: 'password does not match.' }
     ],
     'confirmpassword': [
-      { type: 'required', message: 'password is required.' },
-      { type: 'minlength', message: 'password length.' },
-      { type: 'maxlength', message: 'password length.' }
+      { type: 'required', message: 'password is required.' }
     ],
   }
 
@@ -81,11 +83,9 @@ export class RegisterComponent implements OnInit {
         Validators.maxLength(30)
       ])),
       confirmpassword: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(30)
+        Validators.required
       ])),
-    }, { 
+    }, {
       validators: this.password.bind(this)
     });
   }
@@ -93,69 +93,78 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  checkUsernameTaken() : ValidatorFn{
+  checkUsernameTaken(): ValidatorFn {
     return (group: FormGroup): ValidationErrors => {
-      if(this.loginForm == null){
+      if (this.loginForm == null) {
         return;
       }
       var user = this.loginForm.controls.username.value;
-      this.http.get<any>('/api/users/' +user).subscribe( data => {
+      this.http.get<any>('/api/users/' + user).subscribe(data => {
         const control1 = this.loginForm.controls.username;
         console.log(data)
-        if(data==null){
+        if (data == null) {
           console.log("nametaken: false")
-          control1.setErrors({nametaken: false});
+          control1.setErrors({ nametaken: false });
           return;
         }
-        control1.setErrors({nametaken: true});
+        control1.setErrors({ nametaken: true });
       });
       return;
     }
   }
 
-  signup(){
+  signup() {
     console.log("Sign me Up")
     this.authService.register(this.loginForm.controls.username.value, this.loginForm.controls.email.value, this.loginForm.controls.password.value, this.loginForm.controls.fname.value,
-                              this.loginForm.controls.lname.value, new Date().toLocaleTimeString('en-us',{timeZoneName:'short'}).split('GMT')[1], "0");
-    this.timeout(1000).then(() =>{
+      this.loginForm.controls.lname.value, new Date().toLocaleTimeString('en-us', { timeZoneName: 'short' }).split('GMT')[1], "0");
+    this.timeout(1000).then(() => {
       this.authService
-			.login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
-			.pipe(first())
-			.subscribe(
-				data => {
-					console.log("current User: " + this.authService.currentUserValue);
-					this.router.navigate(['/calender']);
-				},
-				error => {
-				}
-			);
+        .login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
+        .pipe(first())
+        .subscribe(
+          data => {
+            console.log("current User: " + this.authService.currentUserValue);
+            this.router.navigate(['/calender']);
+          },
+          error => {
+          }
+        );
     });
-    
+
   }
 
   password(formGroup: FormGroup) {
+    if (typeof formGroup === 'undefined') {
+      return;
+    }
     const { value: password } = formGroup.get('password');
     const { value: confirmPassword } = formGroup.get('confirmpassword');
-    return password === confirmPassword ? null : { passwordNotMatch: true };
+    console.log("checking")
+    if (password === confirmPassword||confirmPassword=="") {
+      this.passwordmatches= true;
+      return null
+    }
+    formGroup.controls.confirmpassword.setErrors({ passwordNotMatch: true });
+    this.passwordmatches= false;
   }
-  
+
   /*
   ngOnInit()
   {
-  	this.userForm = this.formBuilder.group({
-  		first_name: ['', [Validators.required, Validators.maxLength(50)]],
-  		last_name: ['', [Validators.required, Validators.maxLength(50)]],
-  		email: ['', [Validators.required, Validators.email, Validators.maxLength(75)]],
-  		zipcode: ['', [Validators.required, Validators.pattern('^[0-9]{5}(?:-[0-9]{4})?$')]],
-  		password: ['', [Validators.required, Validators.minLength(5), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]],
-  	});
+    this.userForm = this.formBuilder.group({
+      first_name: ['', [Validators.required, Validators.maxLength(50)]],
+      last_name: ['', [Validators.required, Validators.maxLength(50)]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(75)]],
+      zipcode: ['', [Validators.required, Validators.pattern('^[0-9]{5}(?:-[0-9]{4})?$')]],
+      password: ['', [Validators.required, Validators.minLength(5), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]],
+    });
   }
   */
   timeout(ms) { //pass a time in milliseconds to this function
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  
+
 
 }
 
