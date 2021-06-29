@@ -23,8 +23,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 			catchError((err: HttpErrorResponse) => {
 				if (err.status === 401 && !window.location.href.includes('/login')) {
 					// auto logout if 401 response returned from api
-					this.authService.logout();
-					location.reload();
+					//this.authService.logout();
+					//location.reload();
 				}
 
 				const error = err.error.error || err.error.message || err.statusText;

@@ -15,10 +15,6 @@ const routes: Routes = [
       component: WelcomeComponent
     },
     {
-      path: 'activity-preferences',
-      component: ActivityPreferencesComponent
-    },
-    {
       path: '',
       component: MasterComponent,
       canActivate: [AuthGuard],
@@ -30,6 +26,10 @@ const routes: Routes = [
         {
           path: 'calender',
           component: CalenderComponent
+        },
+        {
+          path: 'activity-preferences',
+          component: ActivityPreferencesComponent
         }
       ]
     },

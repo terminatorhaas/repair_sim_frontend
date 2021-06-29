@@ -24,6 +24,7 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../auth/services/auth.service';
 
 const colors: any = {
   red: {
@@ -64,6 +65,7 @@ export class CalenderComponent{
   calender: Calender;
 
   constructor(private modal: NgbModal,
+    private authService: AuthService,
     private readonly http: HttpClient,
     ) { console.log("Hello From Calender")
     this.calender = new Calender()}
@@ -81,7 +83,7 @@ export class CalenderComponent{
             start: new Date(ereignis.beginnDatumUhr),
             end: new Date(ereignis.endeDatumUhr),
             color: colors.red,
-            draggable: true,
+            draggable: false,
             resizable: {
               beforeStart: true,
               afterEnd: true,
@@ -93,7 +95,8 @@ export class CalenderComponent{
   }
 
   async loadEvents() :Promise<any>{
-    const res1 = await lastValueFrom(this.http.get<Calender>('api/users/' +'terminatorhaas' + '/Kalender/', {}));
+    console.log(this.authService.currentUserValue.username);
+    const res1 = await lastValueFrom(this.http.get<Calender>('api/users/' + this.authService.currentUserValue.username + '/Kalender/', {}));
     this.calender.calenderID = res1[0].kalenderID;
     console.log(res1)
     const res2 = await lastValueFrom(this.http.get<any>('api/ereignis/kalender/' + res1[0].kalenderID,{}));

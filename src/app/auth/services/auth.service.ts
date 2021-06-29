@@ -7,10 +7,12 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { first, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { startOfDay } from 'date-fns';
 
 export interface ApplicationUser {
 	access_token: string;
-	expiresIn: Date;
+	timeout: Date;
 	username: string;
 }
 
@@ -21,7 +23,7 @@ export class AuthService {
 	private currentUserSubject: BehaviorSubject<ApplicationUser>;
 	public currentUser: Observable<ApplicationUser>;
 
-	constructor(private readonly http: HttpClient) {
+	constructor(private readonly http: HttpClient, private router: Router,) {
 		this.currentUserSubject = new BehaviorSubject<ApplicationUser>(
 			JSON.parse(localStorage.getItem('currentUser'))
 		);
@@ -54,21 +56,23 @@ export class AuthService {
 			"email": email,
 			"passwort": password
 		}).pipe(
-			map(access_token => {
-				console.log(access_token);
+			map(user => {
+				console.log(user);
 				// login successful if there's a jwt token in the response
-				if (access_token) {
+				if (user) {
 					// store; user; details; and; jwt; token in local
 					// storage; to; keep; user; logged in between; page; refreshes;
-
-					localStorage.setItem('currentUser', JSON.stringify(access_token));
-					//this.currentUserSubject.next(user);
+					var time: number = user.timeout.match("/\d+/g");
+					user.timeout = new Date(new Date().getTime() + time);
+					console.log("expires in: " + user.expiresIn)
+					localStorage.setItem('currentUser', JSON.stringify(user));
+					this.currentUserSubject.next(user);
 				}
 				this.currentUserSubject = new BehaviorSubject<ApplicationUser>(
 					JSON.parse(localStorage.getItem('currentUser'))
 				);
 				this.currentUser = this.currentUserSubject.asObservable();
-				return access_token;
+				return user;
 			})
 		);
 	
@@ -98,8 +102,10 @@ export class AuthService {
 
 	logout() {
 		// remove user from local storage to log user out
+		alert("logged out")
 		localStorage.removeItem('currentUser');
 		this.currentUserSubject.next(null);
+		this.router.navigate(["/"]);
 	}
 
 	timeout(ms) { //pass a time in milliseconds to this function

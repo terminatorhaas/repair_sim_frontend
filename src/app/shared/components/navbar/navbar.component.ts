@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,7 @@ import { Output, EventEmitter } from '@angular/core';
 export class NavbarComponent implements OnInit {
   @Input() loggedIn: boolean;
   @Output() newItemEvent = new EventEmitter<any>();
-  constructor() { }
+  constructor(public authService: AuthService,) { }
 
   ngOnInit(): void {
   }
