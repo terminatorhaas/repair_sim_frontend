@@ -42,41 +42,11 @@ import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import { JwtInterceptor } from './auth/services/jwt-interceptor';
 import { ErrorInterceptor } from './auth/services/error.interceptor';
-
-const routes: Routes = [
-  {
-    path: 'welcome',
-    component: WelcomeComponent
-  },
-  {
-    path: 'activity-preferences',
-    component: WelcomeComponent
-  },
-  {
-    path: '',
-    component: MasterComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: '',
-        component: HomeComponent
-      },
-      {
-        path: 'calender',
-        component: CalenderComponent
-      }
-    ]
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
-  },
-  { path: '**', redirectTo: '' }
-];
+import { LOCALE_ID} from '@angular/core';
+import localeDe from '@angular/common/locales/de';
+import localeDeExtra from '@angular/common/locales/extra/de';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeDe, localeDeExtra);
 
 @NgModule({
   declarations: [
@@ -118,7 +88,8 @@ const routes: Routes = [
   providers: [{ provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: LOCALE_ID, useValue: 'de' },
+    { provide: MAT_DATE_LOCALE, useValue: 'de' },
   ],
   bootstrap: [AppComponent],
   exports: [

@@ -4,14 +4,14 @@
       <div class="btn-group">
         <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()">
-          Previous
+          Letzte
         </div>
         <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
-          Today
+          Heute
         </div>
         <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()">
-          Next
+          Nächste
         </div>
       </div>
     </div>
@@ -21,13 +21,13 @@
     <div class="col-md">
       <div class="btn-group">
         <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
-          Month
+          Monat
         </div>
         <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
-          Week
+          Woche
         </div>
         <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
-          Day
+          Tag
         </div>
       </div>
     </div>
