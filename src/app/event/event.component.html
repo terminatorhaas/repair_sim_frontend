@@ -1,35 +1,56 @@
 <div class="modal-header">
-    <h4 class="modal-title">Add new event!</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+  <h4 *ngIf="name==='Add'" class="modal-title">Add new event!</h4>
+  <h4 *ngIf="name==='Edit'" class="modal-title">Edit existing event!</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <mat-form-field class="example-full-width">
+    <mat-label>Activity</mat-label>
+    <input matInput placeholder="Activity" [(ngModel)]="activityname">
+  </mat-form-field>
+
+  <!--
+  <div class="col-12">
+    <mat-form-field appearance="fill">
+      <mat-label>Color</mat-label>
+      <mat-select [(value)]="selectedcolor">
+        <mat-option *ngFor="let color of colorsArray" [value]="color[0]">
+          {{color[0]}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
-  <div class="modal-body">
-    <mat-form-field class="example-full-width">
-        <mat-label>Activity</mat-label>
-        <input matInput placeholder="Activity" [(ngModel)]="activityname">
-      </mat-form-field>
-    <p>Start</p>
-    <div class="col-12">
-        <mat-form-field>
-            <mat-label>Start</mat-label>
-            <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="dateControl1">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker #picker>
-            </ngx-mat-datetime-picker>
-        </mat-form-field>
+  -->
+
+  <p>Start</p>
+  <div class="col-12">
+    <mat-form-field>
+      <mat-label>Start</mat-label>
+      <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="dateControl1">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #picker>
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+  </div>
+  <p>End</p>
+  <div class="col-12">
+    <mat-form-field>
+      <mat-label>End</mat-label>
+      <input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date" [formControl]="dateControl2">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #picker2>
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+  </div>
+  <div class="col-12">
+    <div *ngIf="dateerror" class="alert alert-danger" role="alert">
+      Start date can not be after End date!
     </div>
-    <p>End</p>
-    <div class="col-12">
-        <mat-form-field>
-            <mat-label>End</mat-label>
-            <input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date" [formControl]="dateControl2">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <ngx-mat-datetime-picker #picker2>
-            </ngx-mat-datetime-picker>
-        </mat-form-field>
-    </div>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="save()">Save</button>
-  </div>
+</div>
+<div class="modal-footer">
+  <button *ngIf="name==='Edit'" type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+  <button type="button" class="btn btn-success" (click)="save()">Save</button>
+</div>

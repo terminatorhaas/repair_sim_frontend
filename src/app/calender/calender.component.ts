@@ -177,8 +177,51 @@ export class CalenderComponent{
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
+    //this.modalData = { event, action };
+    //this.modal.open(this.modalContent, { size: 'lg' });
+    this.editEvent(event);
+  }
+
+  editEvent(event: CalendarEvent){
+
+    //this.modal.open(this.modalContent, { size: 'lg' });
+    const modalRef = this.modal.open(EventComponent);
+    modalRef.componentInstance.name = "Edit";
+    modalRef.componentInstance.activityname = event.title;
+    modalRef.componentInstance.colors = colors;
+    modalRef.componentInstance.date1 = event.start;
+    modalRef.componentInstance.date2 = event.end;
+    modalRef.result.then((res) => { 
+      console.log(res);
+      if(res==="save"){
+        console.log(modalRef.componentInstance.activityname);
+        console.log(modalRef.componentInstance.dateControl1.value?.toLocaleString());
+        console.log(modalRef.componentInstance.dateControl2.value?.toLocaleString());
+
+
+        console.log('api/ereignis/' + event.id + '/' + this.calender.calenderID);
+        this.http.put<any>('api/ereignis/' + event.id + '/' + this.calender.calenderID,{
+          "kalenderId": this.calender.calenderID,
+          "bezeichnung": modalRef.componentInstance.activityname,
+          "beginnDatumUhr": new Date(modalRef.componentInstance.dateControl1.value).toISOString(),
+          "endeDatumUhr": new Date(modalRef.componentInstance.dateControl2.value).toISOString()
+        }).subscribe(data =>{
+          var changedevent = event;
+          this.events = this.events.filter((event) => event !== changedevent);
+          event.title = modalRef.componentInstance.activityname;
+          event.start = modalRef.componentInstance.dateControl1.value;
+          event.end = modalRef.componentInstance.dateControl2.value;
+          this.events.push(changedevent);
+        });
+
+      }
+      else if(res==="delete"){
+        console.log("delete")
+        this.deleteEvent(event);
+      }
+
+
+    }, () => { console.log('Backdrop click')});
   }
 
   addEvent(): void {
@@ -219,11 +262,12 @@ export class CalenderComponent{
 
   addNewEvent(start: Date, end: Date) {
     const modalRef = this.modal.open(EventComponent);
-    modalRef.componentInstance.name = 'add Event';
+    modalRef.componentInstance.name = 'Add';
+    modalRef.componentInstance.colors = colors;
     modalRef.componentInstance.date1 = start;
     modalRef.componentInstance.date2 = end;
     modalRef.result.then(() => { 
-      console.log(modalRef.componentInstance.activityname);
+      console.log(modalRef.componentInstance.name);
       console.log(modalRef.componentInstance.dateControl1.value?.toLocaleString());
       console.log(modalRef.componentInstance.dateControl2.value?.toLocaleString());
 
@@ -234,7 +278,7 @@ export class CalenderComponent{
         "bezeichnung": modalRef.componentInstance.activityname,
         "beginnDatumUhr": new Date(modalRef.componentInstance.dateControl1.value).toISOString(),
         "endeDatumUhr": new Date(modalRef.componentInstance.dateControl2.value).toISOString()
-      }).subscribe(data =>{
+      }).subscribe( function (exportcolor, data) {
         console.log(data);
         this.events = [
           ...this.events,
@@ -253,7 +297,7 @@ export class CalenderComponent{
         ]; 
 
 
-      });
+      }.bind(this, modalRef.componentInstance.exportcolor));
     
     }, () => { console.log('Backdrop click')})
 

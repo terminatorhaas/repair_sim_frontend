@@ -38,12 +38,12 @@
       [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
       (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-month-view>
-    <mwl-calendar-week-view id="weekview" (hourSegmentClicked)="hourClicked($event)"*ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
-      [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
+    <mwl-calendar-week-view id="weekview" (hourSegmentClicked)="hourClicked($event)" *ngSwitchCase="CalendarView.Week"
+      [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
       (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-week-view>
-    <mwl-calendar-day-view id="dayview" (hourSegmentClicked)="hourClicked($event)" *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate"
-      [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
+    <mwl-calendar-day-view id="dayview" (hourSegmentClicked)="hourClicked($event)" *ngSwitchCase="CalendarView.Day"
+      [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
       (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-day-view>
   </div>
@@ -140,44 +140,72 @@
   </div>
   
 -->
-  <ng-template #modalContent let-close="close">
-    <div class="modal-header">
-      <h5 class="modal-title">Event action occurred</h5>
-      <button type="button" class="close" (click)="close()">
-        <span aria-hidden="true">&times;</span>
-      </button>
+<ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Event action occurred</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      Action:
+      <pre>{{ modalData?.action }}</pre>
     </div>
-    <div class="modal-body">
-      <div>
-        Action:
-        <pre>{{ modalData?.action }}</pre>
+    <div>
+      Event:
+      <pre>{{ modalData?.event | json }}</pre>
+    </div>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Activity</mat-label>
+      <input matInput placeholder="Activity" [(ngModel)]=" modalData?.event.title">
+    </mat-form-field>
+    <p>Start</p>
+    <div class="col-12">
+      <mat-form-field>
+        <mat-label>Start</mat-label>
+        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [(ngModel)]=" modalData?.event.start">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #picker>
+        </ngx-mat-datetime-picker>
+      </mat-form-field>
+    </div>
+    <p>End</p>
+    <div class="col-12">
+      <mat-form-field>
+        <mat-label>End</mat-label>
+        <input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date" [(ngModel)]=" modalData?.event.end">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #picker2>
+        </ngx-mat-datetime-picker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="float-left" type="button" class="btn btn-success" (click)="deleteEvent(modalData?.event); close()">
+      Save
+    </button>
+    <button type="button" class="btn btn-danger" (click)="deleteEvent(modalData?.event); close()">
+      Delete
+    </button>
+  </div>
+</ng-template>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of birth</label>
       </div>
-      <div>
-        Event:
-        <pre>{{ modalData?.event | json }}</pre>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-danger" (click)="deleteEvent(modalData?.event); close()">
-        Delete
-      </button>
-    </div>
-  </ng-template>
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="dateOfBirth">Date of birth</label>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-    </div>
-  </ng-template>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
