@@ -20,35 +20,35 @@ export class RegisterComponent implements OnInit {
 
   error_messages = {
     'fname': [
-      { type: 'required', message: 'First Name is required.' },
+      { type: 'required', message: 'Vorname ist benötigt.' },
     ],
 
     'lname': [
-      { type: 'required', message: 'Last Name is required.' }
+      { type: 'required', message: 'Nachname ist benötigt.' }
     ],
 
     'email': [
-      { type: 'required', message: 'Email is required.' },
-      { type: 'minlength', message: 'Email length.' },
-      { type: 'maxlength', message: 'Email length.' },
-      { type: 'email', message: 'please enter a valid email address.' }
+      { type: 'required', message: 'E-Mail ist benötigt.' },
+      { type: 'minlength', message: 'E-Mail Länge.' },
+      { type: 'maxlength', message: 'E-Mail Länge.' },
+      { type: 'E-Mail', message: 'bitte gib eine valide Email ein.' }
     ],
 
     'username': [
-      { type: 'required', message: 'Username is required.' },
-      { type: 'nametaken', message: 'Username is taken.' },
-      { type: 'minlength', message: 'Username length.' },
-      { type: 'maxlength', message: 'Username length.' },
+      { type: 'required', message: 'Username ist benötigt.' },
+      { type: 'nametaken', message: 'Username wird bereits verwendet.' },
+      { type: 'minlength', message: 'Username Länge.' },
+      { type: 'maxlength', message: 'Username Länge.' },
     ],
 
     'password': [
-      { type: 'required', message: 'password is required.' },
-      { type: 'minlength', message: 'password length.' },
-      { type: 'maxlength', message: 'password length.' },
-      { type: 'passwordNotMatch', message: 'password does not match.' }
+      { type: 'required', message: 'Passwort is benötigt.' },
+      { type: 'minlength', message: 'Passwort Länge.' },
+      { type: 'maxlength', message: 'Passwort Länge.' },
+      { type: 'passwordNotMatch', message: 'Passwort stimmt nicht überein.' }
     ],
     'confirmpassword': [
-      { type: 'required', message: 'password is required.' }
+      { type: 'required', message: 'Passwort wird benötigt.' }
     ],
   }
 
