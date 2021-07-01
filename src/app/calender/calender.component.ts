@@ -85,8 +85,8 @@ export class CalenderComponent{
             color: colors.red,
             draggable: false,
             resizable: {
-              beforeStart: true,
-              afterEnd: true,
+              beforeStart: false,
+              afterEnd: false,
             },
           },
         ];
@@ -288,10 +288,10 @@ export class CalenderComponent{
             start: new Date(data.beginnDatumUhr),
             end: new Date(data.endeDatumUhr),
             color: colors.red,
-            draggable: true,
+            draggable: false,
             resizable: {
-              beforeStart: true,
-              afterEnd: true,
+              beforeStart: false,
+              afterEnd: false,
             },
           },
         ]; 
