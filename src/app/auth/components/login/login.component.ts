@@ -16,12 +16,12 @@ export class LoginComponent implements OnInit {
 
 	error_messages = {
 		'email': [
-		  { type: 'required', message: 'Email is required.' },
-		  { type: 'email', message: 'please enter a valid email address.' }
+		  { type: 'required', message: 'Email ist benötigt.' },
+		  { type: 'email', message: 'gib eine valide Email ein.' }
 		],
 	
 		'password': [
-		  { type: 'required', message: 'Passwort is required.' }
+		  { type: 'required', message: 'Passwort ist benötigt.' }
 		],
 	}
 	constructor(
