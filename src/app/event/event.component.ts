@@ -31,7 +31,11 @@ export class EventComponent implements OnInit {
   ngOnInit(): void {
     this.dateControl1.setValue(new Date(this.date1));
     this.dateControl2.setValue(new Date(this.date2));
-    this.activityname = this.eventname;
+
+    //Do not override with null when editing event
+    if(this.eventname!=null){
+      this.activityname = this.eventname;
+    }
 
     this.dateControl1.valueChanges.subscribe(x => {
       if(this.dateControl1.value<this.dateControl2.value){
