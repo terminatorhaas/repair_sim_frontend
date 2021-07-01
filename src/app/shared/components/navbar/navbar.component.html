@@ -8,8 +8,8 @@
         </button>
         <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
             <div class="navbar-nav text-right">
-                <a class="nav-item nav-link" href="/calender">Calender</a>
-                <a class="nav-item nav-link" href="/activity-preferences">Preferences</a>
+                <a class="nav-item nav-link" href="/calender">Kalender</a>
+                <a class="nav-item nav-link" href="/activity-preferences">Einstellungen</a>
                 <a *ngIf="authService.currentUserValue!=null && authService.currentUserValue.username!=null" class="nav-item nav-link" (click)="newItemEvent.emit(true)">Logout</a>
             </div>
         </div>
