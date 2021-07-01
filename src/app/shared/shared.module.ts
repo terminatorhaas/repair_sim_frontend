@@ -23,6 +23,7 @@ import { ChipsMultiSelectComponent } from './components/chips-multi-select/chips
 import { HomeComponent } from './components/home/home.component';
 import { MasterComponent } from './components/master/master.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { MatCarouselModule } from '@ngbmodule/material-carousel';
 
 @NgModule({
   imports: [
@@ -49,7 +50,10 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     NgxMatNativeDateModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    MaterialModule,
     MatSliderModule,
+    
+    MatCarouselModule.forRoot(),
     RouterModule,
 
   ],
@@ -60,7 +64,6 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     ReactiveFormsModule,
     RouterModule,
     NavbarComponent,
-    MaterialModule,
     NavbarComponent,
     ChipsMultiSelectComponent
 

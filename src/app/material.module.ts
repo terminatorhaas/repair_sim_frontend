@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatCarouselModule } from '@ngbmodule/material-carousel';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   imports: [
@@ -14,7 +14,7 @@ import { MatCarouselModule } from '@ngbmodule/material-carousel';
     MatNativeDateModule,
     MatInputModule,
     MatSelectModule,
-    MatCarouselModule.forRoot(),
+    MatSliderModule,
     BrowserAnimationsModule
   ],
   exports: [
@@ -22,6 +22,7 @@ import { MatCarouselModule } from '@ngbmodule/material-carousel';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
+    MatSliderModule,
     MatSelectModule,
     BrowserAnimationsModule
   ],

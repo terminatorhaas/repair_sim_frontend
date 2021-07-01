@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatCarousel, MatCarouselComponent } from '@ngbmodule/material-carousel';
 
 @Component({
   selector: 'app-welcome',
@@ -6,6 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
+
+  slides = [
+    {'image': 'https://picsum.photos/seed/picsum/1200/300'}, 
+    {'image': 'https://picsum.photos/seed/picsum/1200/300'},
+    {'image': 'https://picsum.photos/seed/picsum/1200/300'}, 
+    {'image': 'https://picsum.photos/seed/picsum/1200/300'}, 
+    {'image': 'https://picsum.photos/seed/picsum/1200/300'}
+  ];
+
 
   constructor() { }
 
