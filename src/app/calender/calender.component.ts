@@ -1,28 +1,10 @@
+import { CalenderService } from './../services/calender.service';
 import { EventComponent } from './../event/event.component';
-import {
-  Component,
-  ChangeDetectionStrategy,
-  ViewChild,
-  TemplateRef,
-} from '@angular/core';
-import {
-  startOfDay,
-  endOfDay,
-  subDays,
-  addDays,
-  endOfMonth,
-  isSameDay,
-  isSameMonth,
-  addHours,
-} from 'date-fns';
-import { ConnectableObservable, lastValueFrom, Subject } from 'rxjs';
+import {Component,ViewChild,TemplateRef,} from '@angular/core';
+import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours,} from 'date-fns';
+import { ConnectableObservable, lastValueFrom, Subject, Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {
-  CalendarEvent,
-  CalendarEventAction,
-  CalendarEventTimesChangedEvent,
-  CalendarView,
-} from 'angular-calendar';
+import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,} from 'angular-calendar';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/services/auth.service';
 
@@ -52,7 +34,7 @@ export class Calender {
   templateUrl: './calender.component.html',
   styleUrls: ['./calender.component.css']
 })
-export class CalenderComponent{
+export class CalenderComponent {
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
@@ -64,11 +46,26 @@ export class CalenderComponent{
 
   calender: Calender;
 
-  constructor(private modal: NgbModal,
+  constructor(
+    private modal: NgbModal,
     private authService: AuthService,
     private readonly http: HttpClient,
-    ) { console.log("Hello From Calender")
-    this.calender = new Calender()}
+    private calenderService: CalenderService
+  ) {
+
+    console.log("Hello From Calender");
+    this.calender = new Calender();
+
+    if (this.calenderService.getEvent() != null) {
+      this.eventFromRecommendation();
+    }
+  }
+
+  eventFromRecommendation(){
+    var newevent = this.calenderService.getEvent();
+    this.addNewEvent(new Date(), new Date(), newevent.aktivitaetenID, newevent.aktivitaetsBezeichnung);
+    this.calenderService.removeEvent();
+  }
 
   ngOnInit(): void {
 
@@ -90,16 +87,16 @@ export class CalenderComponent{
             },
           },
         ];
-      }); 
+      });
     });
   }
 
-  async loadEvents() :Promise<any>{
+  async loadEvents(): Promise<any> {
     console.log(this.authService.currentUserValue.username);
     const res1 = await lastValueFrom(this.http.get<Calender>('api/users/' + this.authService.currentUserValue.username + '/Kalender/', {}));
     this.calender.calenderID = res1[0].kalenderID;
     console.log(res1)
-    const res2 = await lastValueFrom(this.http.get<any>('api/ereignis/kalender/' + res1[0].kalenderID,{}));
+    const res2 = await lastValueFrom(this.http.get<any>('api/ereignis/kalender/' + res1[0].kalenderID, {}));
     return res2;
   }
 
@@ -108,25 +105,6 @@ export class CalenderComponent{
     event: CalendarEvent;
   };
 
-  /*
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      },
-    },
-    {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
-      a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      },
-    },
-  ];
-  */
 
   refresh: Subject<any> = new Subject();
 
@@ -144,7 +122,7 @@ export class CalenderComponent{
         events.length === 0
       ) {
         this.activeDayIsOpen = false;
-        this.addNewEvent(new Date(startOfDay(date)),new Date((new Date(startOfDay(date))).getTime() + 30*60000));
+        this.addNewEvent(new Date(startOfDay(date)), new Date((new Date(startOfDay(date))).getTime() + 30 * 60000),null ,null);
       } else {
         this.activeDayIsOpen = true;
       }
@@ -153,9 +131,9 @@ export class CalenderComponent{
     //this.addNewEvent(new Date(startOfDay(date)),new Date((new Date(startOfDay(date))).getTime() + 30*60000))
   }
 
-  hourClicked( event ){
+  hourClicked(event) {
     console.log(event.date);
-    this.addNewEvent(event.date,new Date(event.date.getTime() + 30*60000))
+    this.addNewEvent(event.date, new Date(event.date.getTime() + 30 * 60000), null, null)
   }
 
   eventTimesChanged({
@@ -182,7 +160,7 @@ export class CalenderComponent{
     this.editEvent(event);
   }
 
-  editEvent(event: CalendarEvent){
+  editEvent(event: CalendarEvent) {
 
     //this.modal.open(this.modalContent, { size: 'lg' });
     const modalRef = this.modal.open(EventComponent);
@@ -191,21 +169,21 @@ export class CalenderComponent{
     modalRef.componentInstance.colors = colors;
     modalRef.componentInstance.date1 = event.start;
     modalRef.componentInstance.date2 = event.end;
-    modalRef.result.then((res) => { 
+    modalRef.result.then((res) => {
       console.log(res);
-      if(res==="save"){
+      if (res === "save") {
         console.log(modalRef.componentInstance.activityname);
         console.log(modalRef.componentInstance.dateControl1.value?.toLocaleString());
         console.log(modalRef.componentInstance.dateControl2.value?.toLocaleString());
 
 
         console.log('api/ereignis/' + event.id + '/' + this.calender.calenderID);
-        this.http.put<any>('api/ereignis/' + event.id + '/' + this.calender.calenderID,{
+        this.http.put<any>('api/ereignis/' + event.id + '/' + this.calender.calenderID, {
           "kalenderId": this.calender.calenderID,
           "bezeichnung": modalRef.componentInstance.activityname,
           "beginnDatumUhr": new Date(modalRef.componentInstance.dateControl1.value).toISOString(),
           "endeDatumUhr": new Date(modalRef.componentInstance.dateControl2.value).toISOString()
-        }).subscribe(data =>{
+        }).subscribe(data => {
           var changedevent = event;
           this.events = this.events.filter((event) => event !== changedevent);
           event.title = modalRef.componentInstance.activityname;
@@ -215,30 +193,13 @@ export class CalenderComponent{
         });
 
       }
-      else if(res==="delete"){
+      else if (res === "delete") {
         console.log("delete")
         this.deleteEvent(event);
       }
 
 
-    }, () => { console.log('Backdrop click')});
-  }
-
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
+    }, () => { console.log('Backdrop click') });
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
@@ -246,7 +207,7 @@ export class CalenderComponent{
     console.log("delete Event")
     console.log(eventToDelete.id)
     console.log(this.calender.calenderID)
-    this.http.delete<any>('api/ereignis/' + eventToDelete.id + '/' + this.calender.calenderID,{ }).subscribe(data => {
+    this.http.delete<any>('api/ereignis/' + eventToDelete.id + '/' + this.calender.calenderID, {}).subscribe(data => {
       console.log(data);
     }
     );
@@ -260,25 +221,30 @@ export class CalenderComponent{
     this.activeDayIsOpen = false;
   }
 
-  addNewEvent(start: Date, end: Date) {
+  addNewEvent(start: Date, end: Date, id: number , eventname: string) {
+
+    //Default activity for manually added
+    if(id===null){
+      id = 1;
+    }
     const modalRef = this.modal.open(EventComponent);
     modalRef.componentInstance.name = 'Add';
-    modalRef.componentInstance.colors = colors;
     modalRef.componentInstance.date1 = start;
+    modalRef.componentInstance.eventname = eventname;
     modalRef.componentInstance.date2 = end;
-    modalRef.result.then(() => { 
+    modalRef.result.then(() => {
       console.log(modalRef.componentInstance.name);
       console.log(modalRef.componentInstance.dateControl1.value?.toLocaleString());
       console.log(modalRef.componentInstance.dateControl2.value?.toLocaleString());
 
       console.log("Kalender Id:" + this.calender.calenderID);
-      this.http.post<any>('api/ereignis',{
-        "aktivitaetenId": 1,
+      this.http.post<any>('api/ereignis', {
+        "aktivitaetenId": id,
         "kalenderId": this.calender.calenderID,
         "bezeichnung": modalRef.componentInstance.activityname,
         "beginnDatumUhr": new Date(modalRef.componentInstance.dateControl1.value).toISOString(),
         "endeDatumUhr": new Date(modalRef.componentInstance.dateControl2.value).toISOString()
-      }).subscribe( function (exportcolor, data) {
+      }).subscribe(function (exportcolor, data) {
         console.log(data);
         this.events = [
           ...this.events,
@@ -294,13 +260,13 @@ export class CalenderComponent{
               afterEnd: false,
             },
           },
-        ]; 
+        ];
 
 
       }.bind(this, modalRef.componentInstance.exportcolor));
-    
-    }, () => { console.log('Backdrop click')})
 
-    
+    }, () => { console.log('Backdrop click') })
+
+
   }
 }

@@ -11,6 +11,7 @@ export class EventComponent implements OnInit {
 
   @Input() name;
   @Input() colors;
+  @Input() eventname: string;
   @Input() date1: Date;
   @Input() date2: Date;
 
@@ -30,6 +31,7 @@ export class EventComponent implements OnInit {
   ngOnInit(): void {
     this.dateControl1.setValue(new Date(this.date1));
     this.dateControl2.setValue(new Date(this.date2));
+    this.activityname = this.eventname;
 
     this.dateControl1.valueChanges.subscribe(x => {
       if(this.dateControl1.value<this.dateControl2.value){

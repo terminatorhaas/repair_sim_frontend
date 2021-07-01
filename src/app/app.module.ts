@@ -1,3 +1,4 @@
+import { RecommendationsComponent } from './recommendations/recommendations.component';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -53,6 +54,7 @@ registerLocaleData(localeDe, localeDeExtra);
     AppComponent,
     CalenderComponent,
     EventComponent,
+    RecommendationsComponent,
     ActivityPreferencesComponent,
   ],
   imports: [
