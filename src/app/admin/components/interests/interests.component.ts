@@ -1,4 +1,3 @@
-import { CalenderService } from './../services/calender.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -6,18 +5,17 @@ import { trackByHourSegment } from 'angular-calendar/modules/common/util';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-recommendations',
-  templateUrl: './recommendations.component.html',
-  styleUrls: ['./recommendations.component.css']
+  selector: 'app-interests',
+  templateUrl: './interests.component.html',
+  styleUrls: ['./interests.component.css']
 })
-export class RecommendationsComponent implements OnInit {
+export class InterestsComponent implements OnInit {
 
   recommendations = [];
   errorMessage;
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private calenderService: CalenderService,
     private router: Router
   ) { }
 
@@ -55,7 +53,5 @@ export class RecommendationsComponent implements OnInit {
   }
 
   plan(element){
-    this.router.navigate(["/calender"]);
-    this.calenderService.setEvent(element);
   }
 }

@@ -1,3 +1,5 @@
+import { ActivityComponent } from './admin/components/activities/activities.component';
+import { InterestsComponent } from './admin/components/interests/interests.component';
 import { RecommendationsComponent } from './recommendations/recommendations.component';
 import { ActivityPreferencesComponent } from './activity-preferences/activity-preferences.component';
 import { NgModule } from '@angular/core';
@@ -35,6 +37,14 @@ const routes: Routes = [
         {
           path: 'recommendations',
           component: RecommendationsComponent
+        },
+        {
+          path: 'interests',
+          component: InterestsComponent
+        },
+        {
+          path: 'activities',
+          component: ActivityComponent
         }
       ]
     },
