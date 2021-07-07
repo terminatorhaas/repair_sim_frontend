@@ -28,6 +28,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 @NgModule({
@@ -59,8 +61,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MaterialModule,
     MatSliderModule,  
     MatCarouselModule.forRoot(),
-    RouterModule,
-
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    RouterModule
   ],
   declarations: [ActivityPreferencesComponent, CalenderComponent, EventComponent, RecommendationsComponent, WelcomeComponent],
   exports: [
