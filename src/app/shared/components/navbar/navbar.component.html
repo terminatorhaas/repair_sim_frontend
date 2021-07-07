@@ -8,10 +8,13 @@
         </button>
         <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
             <div class="navbar-nav text-right">
+                <a *ngIf="admin" class="nav-item nav-link" href="/activities">Verwalte Aktivitäten</a>
+                <a *ngIf="admin" class="nav-item nav-link" href="/interests">Verwalte Interessen</a>
+                <mat-divider [vertical]="true"></mat-divider>
                 <a class="nav-item nav-link" href="/calender">Kalender</a>
                 <a class="nav-item nav-link" href="/recommendations">Vorschläge</a>
                 <a class="nav-item nav-link" href="/activity-preferences">Einstellungen</a>
-                <a *ngIf="authService.currentUserValue!=null && authService.currentUserValue.username!=null" class="nav-item nav-link" (click)="newItemEvent.emit(true)">Logout</a>
+                <a *ngIf="authService.currentUserValue!=null && authService.currentUserValue.username!=null" href="/login" class="nav-item nav-link" (click)="newItemEvent.emit(true)">Logout</a>
             </div>
         </div>
     </div>

@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +25,7 @@ import { HomeComponent } from './components/home/home.component';
 import { MasterComponent } from './components/master/master.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { MatCarouselModule } from '@ngbmodule/material-carousel';
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
   imports: [
@@ -51,18 +53,18 @@ import { MatCarouselModule } from '@ngbmodule/material-carousel';
     MatNativeDateModule,
     MatFormFieldModule,
     MaterialModule,
-    MatSliderModule,
-    
+    MatSliderModule,  
     MatCarouselModule.forRoot(),
     RouterModule,
 
   ],
-  declarations: [NavbarComponent, ChipsMultiSelectComponent, HomeComponent, MasterComponent, WelcomeComponent],
+  declarations: [NavbarComponent, ChipsMultiSelectComponent, HomeComponent, MasterComponent, WelcomeComponent, AlertComponent,],
   exports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    AlertComponent,
     NavbarComponent,
     NavbarComponent,
     ChipsMultiSelectComponent

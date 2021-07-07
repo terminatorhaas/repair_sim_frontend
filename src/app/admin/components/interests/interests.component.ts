@@ -1,8 +1,12 @@
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { InterestService } from './../../services/interest.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { trackByHourSegment } from 'angular-calendar/modules/common/util';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { CalenderService } from 'src/app/services/calender.service';
+import { AlertComponent } from 'src/app/shared/components/alert/alert.component';
 
 @Component({
   selector: 'app-interests',
@@ -11,47 +15,79 @@ import { Router } from '@angular/router';
 })
 export class InterestsComponent implements OnInit {
 
-  recommendations = [];
+  interests: any[];
   errorMessage;
   constructor(
-    private http: HttpClient,
+    private interestService: InterestService,
     private authService: AuthService,
+    private calenderService: CalenderService,
+    private modal: NgbModal,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.getNewRecommendations();
-    setTimeout(() =>{console.log(this.recommendations)},1000);
+    this.interestService.getInterests().subscribe(data => {
+      this.interests = data;
+      this.sortInterests();
+    });
+    //setTimeout(() =>{console.log(this.recommendations)},1000);
   }
 
-  getNewRecommendations(){
-    this.recommendations= [];
-    for (var i = 0; i < 10; i++) {
-      this.getRecommendation();
-    }
+  sortInterests(){
+    this.interests.sort(function (x, y) {
+      return x.interessenBezeichnung.localeCompare(y.interessenBezeichnung);
+    });
   }
-  getRecommendation(){
-    var add = true;
-      this.http.get<any>('api/users/' + this.authService.currentUserValue.username + '/vorschlaege', {}).subscribe((data) => {
-        add = true;
-        this.recommendations.forEach(element => {
-          if(element.aktivitaetsBezeichnung===data.aktivitaetsBezeichnung){
-            add= false;
-          }
-        });
-        if(add===true){
-          this.recommendations.push(data);
+
+
+
+  remove(element) {
+      //remove it
+      const modalRef = this.modal.open(AlertComponent);
+      modalRef.componentInstance.mode = "delete";
+      modalRef.componentInstance.title = "Bist du dir Sicher, dass du das Interesse mit allen Aktivitäten löschen möchtest?";
+      modalRef.result.then((res) => {
+        if (res === "delete") {
+          this.interestService.deleteInterest(element.interessenID).subscribe(data => {
+            console.log(data);
+            this.interests = this.interests.filter(obj => obj !== element);
+          },
+          error => {
+            console.log("could not delete");
+          });
         }
-      },(error) => {
-        console.error('Couldnt generate Recommendation')
-        this.errorMessage = "Keine Vorschläge generierbar. Lege deine Interessen zunächst in den Einstellungen fest!";
-      });
+      }, () => { console.log('Backdrop click') });
   }
 
-  remove(element){
-    this.recommendations = this.recommendations.filter(obj => obj !== element);
+  createInterest() {
+    console.log("create");
+    const modalRef = this.modal.open(AlertComponent);
+    modalRef.componentInstance.mode = "add";
+    modalRef.componentInstance.title = "Neues Interesse Hinzufügen";
+    modalRef.result.then((res) => {
+      if (res === "save") {
+        this.interestService.saveInterest(modalRef.componentInstance.name).subscribe(data => {
+          this.interests.push(data);
+          this.sortInterests();
+        });
+      }
+    }, () => { console.log('Backdrop click') });
   }
 
-  plan(element){
+  changeInterest(element) {
+    console.log("change");
+    const modalRef = this.modal.open(AlertComponent);
+    modalRef.componentInstance.mode = "change";
+    modalRef.componentInstance.title = "Interesse verändern";
+    modalRef.componentInstance.name = element.interessenBezeichnung;
+    modalRef.result.then((res) => {
+      if (res === "change") {
+        this.interestService.changeInterest(element.interessenID, modalRef.componentInstance.name).subscribe(data => {
+          element.interessenBezeichnung= modalRef.componentInstance.name;
+          this.sortInterests();
+        });
+      }
+    }, () => { console.log('Backdrop click') });
   }
+
 }

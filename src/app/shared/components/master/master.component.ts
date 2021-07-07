@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 @Component({
 	selector: 'app-master',
 	template: `
-    <app-navbar (newItemEvent)="logout($event)" [loggedIn]="loggedIn"></app-navbar>
+    <app-navbar (newItemEvent)="logout($event)" [loggedIn]="loggedIn" [admin]="adminflag"></app-navbar>
     <section>
       <div class="container">
         <router-outlet></router-outlet>
@@ -15,7 +15,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   `
 })
 export class MasterComponent implements OnInit {
-	public loggedIn = false;
+	loggedIn = false;
+	adminflag = false;
 
 	constructor(
 		private readonly authService: AuthService,
@@ -25,19 +26,11 @@ export class MasterComponent implements OnInit {
 
 	ngOnInit() {
 		this.loggedIn = !!this.authService.currentUserValue;
+		if(this.authService.currentUserValue.role==="admin"){
+			this.adminflag=true
+		}
 	}
 
-	public testmethod(){
-		console.log("test")
-		this.http.post<any>('/api/users/login', {
-			"email": "man@fred.com",
-			"passwort": "Busfahrer***"
-		}).subscribe( data =>{
-			console.log(data)
-		}
-			
-		)
-	}
 	public logout(newItemEvent: boolean): void {
 		this.authService.logout();
 		this.router.navigate(['/login']);

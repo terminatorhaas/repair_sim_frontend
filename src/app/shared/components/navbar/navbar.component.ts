@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   @Input() loggedIn: boolean;
+  @Input() admin: boolean;
   @Output() newItemEvent = new EventEmitter<any>();
   constructor(public authService: AuthService,) { }
 

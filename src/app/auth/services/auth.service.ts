@@ -12,6 +12,7 @@ import { startOfDay } from 'date-fns';
 
 export interface ApplicationUser {
 	access_token: string;
+	role: string;
 	timeout: Date;
 	username: string;
 }
@@ -112,10 +113,11 @@ export class AuthService {
 	}
 
 	private startLogoutTokenTimer() {
+		if(this.currentUserValue===null) return;
 		setTimeout(() =>{
         // set a timeout to refresh the token a minute before it expires
-		console.log("Timeout in");
-		console.log(new Date(this.currentUserValue.timeout).toString());
+		//console.log("Timeout in");
+		//console.log(new Date(this.currentUserValue.timeout).toString());
 		if(this.currentUserValue.timeout===null){
 			return;
 		}

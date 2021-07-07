@@ -23,7 +23,7 @@ export class RecommendationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNewRecommendations();
-    setTimeout(() =>{console.log(this.recommendations)},1000);
+    //setTimeout(() =>{console.log(this.recommendations)},1000);
   }
 
   getNewRecommendations(){

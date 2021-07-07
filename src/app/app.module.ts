@@ -1,3 +1,4 @@
+import { AdminModule } from './admin/admin.module';
 import { RecommendationsComponent } from './recommendations/recommendations.component';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
@@ -60,6 +61,7 @@ registerLocaleData(localeDe, localeDeExtra);
   imports: [
     SharedModule,
     AuthModule,
+    AdminModule,
     NgbModule,
     BrowserModule,
     HttpClientModule,
