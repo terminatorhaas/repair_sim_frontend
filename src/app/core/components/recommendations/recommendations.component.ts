@@ -1,4 +1,4 @@
-import { CalenderService } from './../services/calender.service';
+import { CalenderService } from '../../services/calender.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';

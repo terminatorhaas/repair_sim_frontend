@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { CalenderService } from 'src/app/services/calender.service';
+import { CalenderService } from 'src/app/core/services/calender.service';
 import { AlertComponent } from 'src/app/shared/components/alert/alert.component';
 
 @Component({

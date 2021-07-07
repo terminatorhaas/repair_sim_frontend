@@ -1,12 +1,12 @@
-import { CalenderService } from './../services/calender.service';
-import { EventComponent } from './../event/event.component';
+import { CalenderService } from '../../services/calender.service';
+import { EventComponent } from '../event/event.component';
 import {Component,ViewChild,TemplateRef,} from '@angular/core';
 import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours,} from 'date-fns';
 import { ConnectableObservable, lastValueFrom, Subject, Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,CalendarView,} from 'angular-calendar';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../auth/services/auth.service';
+import { AuthService } from '../../../auth/services/auth.service';
 
 const colors: any = {
   red: {

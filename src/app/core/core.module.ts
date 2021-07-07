@@ -1,16 +1,25 @@
 
+import { MaterialModule } from './../material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '../material.module';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { ActivityPreferencesComponent } from './components/activity-preferences/activity-preferences.component';
+import { CalenderComponent } from './components/calender/calender.component';
+import { EventComponent } from './components/event/event.component';
+import { MasterComponent } from '../master/master.component';
+import { RecommendationsComponent } from './components/recommendations/recommendations.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCarouselModule } from '@ngbmodule/material-carousel';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { SharedModule } from '../shared/shared.module';
+import { NavbarComponent } from '../shared/components/navbar/navbar.component';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
@@ -19,14 +28,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSliderModule } from '@angular/material/slider';
-import { ChipsMultiSelectComponent } from './components/chips-multi-select/chips-multi-select.component';
-import { WelcomeComponent } from '../core/components/welcome/welcome.component';
-import { MatCarouselModule } from '@ngbmodule/material-carousel';
-import { AlertComponent } from './components/alert/alert.component';
+
 
 @NgModule({
   imports: [
+    SharedModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -56,19 +62,8 @@ import { AlertComponent } from './components/alert/alert.component';
     RouterModule,
 
   ],
-  declarations: [NavbarComponent, ChipsMultiSelectComponent, AlertComponent],
+  declarations: [ActivityPreferencesComponent, CalenderComponent, EventComponent, RecommendationsComponent, WelcomeComponent],
   exports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    AlertComponent,
-    NavbarComponent,
-    ChipsMultiSelectComponent
-
   ]
 })
-export class SharedModule {
-  constructor() {
-  }
-}
+export class CoreModule { }

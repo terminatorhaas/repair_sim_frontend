@@ -1,11 +1,11 @@
-import { ChipsMultiSelectComponent } from './../shared/components/chips-multi-select/chips-multi-select.component';
+import { ChipsMultiSelectComponent } from '../../../shared/components/chips-multi-select/chips-multi-select.component';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormControl } from '@angular/forms';
 import { MatChip, MatChipList } from '@angular/material/chips';
 import { untilDestroyed } from '@ngneat/until-destroy';
-import { AuthService } from '../auth/services/auth.service';
 import { lastValueFrom } from 'rxjs';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 
 

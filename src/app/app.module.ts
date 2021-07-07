@@ -1,5 +1,5 @@
 import { AdminModule } from './admin/admin.module';
-import { RecommendationsComponent } from './recommendations/recommendations.component';
+import { RecommendationsComponent } from './core/components/recommendations/recommendations.component';
 import { AuthModule } from './auth/auth.module';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -30,14 +30,12 @@ import { NgxMatNativeDateModule } from '@angular-material-components/datetime-pi
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CalenderComponent } from './calender/calender.component';
+import { CalenderComponent } from './core/components/calender/calender.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { EventComponent } from './event/event.component';
-import { ActivityPreferencesComponent } from './activity-preferences/activity-preferences.component';
+import { EventComponent } from './core/components/event/event.component';
+import { ActivityPreferencesComponent } from './core/components/activity-preferences/activity-preferences.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MasterComponent } from './shared/components/master/master.component';
-import { HomeComponent } from './shared/components/home/home.component';
-import { WelcomeComponent } from './shared/components/welcome/welcome.component';
+import { WelcomeComponent } from './core/components/welcome/welcome.component';
 import { ChipsMultiSelectComponent } from './shared/components/chips-multi-select/chips-multi-select.component';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './auth/components/login/login.component';
@@ -48,13 +46,15 @@ import { LOCALE_ID} from '@angular/core';
 import localeDe from '@angular/common/locales/de';
 import localeDeExtra from '@angular/common/locales/extra/de';
 import { registerLocaleData } from '@angular/common';
+import { MasterComponent } from './master/master.component';
 registerLocaleData(localeDe, localeDeExtra);
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalenderComponent,
+    MasterComponent,
     EventComponent,
+    CalenderComponent,
     RecommendationsComponent,
     ActivityPreferencesComponent,
   ],

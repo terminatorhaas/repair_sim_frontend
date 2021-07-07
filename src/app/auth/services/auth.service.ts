@@ -135,7 +135,6 @@ export class AuthService {
 
 	logout() {
 		// remove user from local storage to log user out
-		alert("logged out")
 		localStorage.removeItem('currentUser');
 		this.currentUserSubject.next(null);
 		this.router.navigate(["/login"]);
