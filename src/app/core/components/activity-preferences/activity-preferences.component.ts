@@ -1,3 +1,4 @@
+import { UserService } from './../../services/user.service';
 import { ChipsMultiSelectComponent } from '../../../shared/components/chips-multi-select/chips-multi-select.component';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
@@ -18,12 +19,14 @@ export class ActivityPreferencesComponent implements OnInit {
 
   constructor(
     private readonly http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) {
   }
 
   active: boolean = false;
   options: string[];
+  user: any;
 
   optionsWithKey = new Map<string, number>();
   optionsToDelete = new Map<string, number>();
@@ -37,6 +40,10 @@ export class ActivityPreferencesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.getUser(this.authService.currentUserValue.username).subscribe(data =>{
+      this.user= data;
+      console.log(data);
+    });
     this.getInteressen().then(res => {
       this.options = res;
       console.log(this.options)

@@ -83,6 +83,9 @@
 						Passwort stimmt nicht überein.
 				</div>
 			</div>
+			<div *ngIf="errormessage" class="alert alert-danger" role="alert">
+				Email Adresse ist bereits registriert bitte verwende eine andere Email!
+			</div>
       <pre>
       </pre>
 			<button class="form-control btn btn-primary" [disabled]="!loginForm.valid" (click)="signup()">Registrieren</button>

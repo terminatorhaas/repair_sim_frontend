@@ -1,7 +1,9 @@
-<mat-chip-list selectable multiple [disabled]="disabled">
+<div class="d-flex justify-content-center" style="text-align: center;">
+<mat-chip-list class="d-flex justify-content-center text-center" selectable multiple [disabled]="disabled">
     <mat-chip #c="matChip" *ngFor="let option of options" (click)="toggleSelection(c)" [value]="option"
         [disabled]="disabled">
         <mat-icon *ngIf="c.selected">check</mat-icon>
         {{option}}
     </mat-chip>
 </mat-chip-list>
+</div>

@@ -90,7 +90,7 @@ export class AuthService {
 	
 	}
 
-	register(username: string, email: string, password: string, vorname: string, nachname: string, zeitzone: string, adminFlag: string) {
+	register(username: string, email: string, password: string, vorname: string, nachname: string, zeitzone: string, adminFlag: string) :Observable<any>{
 		return this.http.post<any>('/api/users/', {
 			"username": username,
     		"email": email,
@@ -99,17 +99,15 @@ export class AuthService {
     		"nachname": nachname,
     		"zeitzone": zeitzone,
     		"adminFlag": adminFlag
-		}).subscribe(data => {
-			console.log("email" + email)
-			console.log("email" + password)
+		});
+	}
+
+	addUsertoCalender(username){
 			this.http.post<any>('/api/kalender/', { "bezeichnung": "Standard" }).subscribe(data => {
 				console.log("Kalender Id" + data.kalenderID)
 				console.log("Kalender Id" + username)
-				this.http.put<any>('/api/users/' + username + '/Kalender/' + data.kalenderID, {}).subscribe(data=> {});
+				this.http.put<any>('/api/users/' + username + '/Kalender/' + data.kalenderID, {}).subscribe();
 			});
-		});
-		
-	
 	}
 
 	private startLogoutTokenTimer() {
