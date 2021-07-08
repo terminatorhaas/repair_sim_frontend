@@ -11,10 +11,8 @@
                         style="float: left;">Nein</button>
                 </li>
             </ul>
-            <div class="error-messages" *ngIf="errorMessage">
-                <div class="error-message" >
-                    {{errorMessage}}
-                </div>
+            <div *ngIf="errorMessage!=null" class="alert alert-danger">
+                {{errorMessage}}
             </div>
         </div>
     </div>

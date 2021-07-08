@@ -1,3 +1,4 @@
+import { InterestsService } from './../../services/interests.service';
 import { UserService } from './../../services/user.service';
 import { ChipsMultiSelectComponent } from '../../../shared/components/chips-multi-select/chips-multi-select.component';
 import { HttpClient } from '@angular/common/http';
@@ -20,7 +21,8 @@ export class ActivityPreferencesComponent implements OnInit {
   constructor(
     private readonly http: HttpClient,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private interestService: InterestsService
   ) {
   }
 
@@ -88,7 +90,7 @@ export class ActivityPreferencesComponent implements OnInit {
 
   async getInteressen(): Promise<any> {
     var interessen = new Array();
-    var local = await this.getInteressenBackend();
+    var local = await this.interestService.getInteressenBackend();
 
     console.log("result")
     console.log(local)
@@ -118,11 +120,6 @@ export class ActivityPreferencesComponent implements OnInit {
     //this.options = interessen;
   }
 
-  async getInteressenBackend(): Promise<any> {
-    const res2 = await lastValueFrom(this.http.get<any>('api/interessen', {}));
-    return res2;
-  }
-
   async getSelectedInteressenBackend(): Promise<any> {
     const res2 = await lastValueFrom(this.http.get<any>('api/users/' + this.authService.currentUserValue.username + '/Interessen', {}));
     return res2;
@@ -140,8 +137,9 @@ export class ActivityPreferencesComponent implements OnInit {
 
     addedInterests.forEach(async interest => {
       this.optionsToDelete.delete(interest);
-      console.log('/api/users/' + this.authService.currentUserValue.username + '/interesse/' + this.optionsWithKey.get(interest));
-      await this.http.put<any>('/api/users/' + this.authService.currentUserValue.username + '/interesse/' + this.optionsWithKey.get(interest), {}).subscribe();
+      //console.log('/api/users/' + this.authService.currentUserValue.username + '/interesse/' + this.optionsWithKey.get(interest));
+      await this.interestService.addSelectedBackend(this.authService.currentUserValue.username, this.optionsWithKey.get(interest));
+      //this.http.put<any>('/api/users/' + this.authService.currentUserValue.username + '/interesse/' + this.optionsWithKey.get(interest), {}).subscribe();
     });
     return;
   }

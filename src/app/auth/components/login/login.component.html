@@ -30,9 +30,11 @@
           </div>
         </ng-container>
       </div>
+      <div *ngIf="error!=null" class="alert alert-danger">
+        <strong>Error!</strong> Email oder Passwort sind falsch!
+      </div>
       <pre>
       </pre>
-
       <div class="form-group">
         <button class="form-control btn btn-primary" [disabled]="!loginForm.valid" (click)="onSubmit()">Login</button>
       </div><br>

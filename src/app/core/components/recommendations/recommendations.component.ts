@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class RecommendationsComponent implements OnInit {
 
   recommendations = [];
-  errorMessage;
+  errorMessage: string;
   constructor(
     private http: HttpClient,
     private authService: AuthService,
@@ -29,7 +29,10 @@ export class RecommendationsComponent implements OnInit {
   getNewRecommendations(){
     this.recommendations= [];
     for (var i = 0; i < 10; i++) {
-      this.getRecommendation();
+      if(!this.errorMessage){
+        this.getRecommendation();
+      }
+      else break;
     }
   }
   getRecommendation(){

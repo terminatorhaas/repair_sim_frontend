@@ -1,3 +1,4 @@
+import { UsersComponent } from './components/users/users.component';
 import { MaterialModule } from './../material.module';
 import { ActivityComponent } from './components/activities/activities.component';
 import { NgModule } from '@angular/core';
@@ -13,6 +14,7 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     InterestsComponent,
     ActivityComponent,
+    UsersComponent
   ],
 	imports: [FormsModule, ReactiveFormsModule, RouterModule, CommonModule, SharedModule, MaterialModule ],
 	exports: [InterestsComponent, ActivityComponent]

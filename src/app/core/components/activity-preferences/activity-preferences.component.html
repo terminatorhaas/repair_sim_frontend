@@ -1,6 +1,6 @@
 <br>
 
-<div class="row">
+<div *ngIf="user!=null" class="row">
     <div class="col-12  text-center">
         <h3>Username: {{user.username}}</h3>
         <h3>E-Mail: {{user.email}}</h3>

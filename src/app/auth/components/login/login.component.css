@@ -7,3 +7,7 @@ p {
 input.ng-touched.ng-invalid {
   border: 1px solid red;
 }
+
+.alert-danger{
+  margin-top: 20px;
+}

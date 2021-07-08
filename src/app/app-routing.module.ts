@@ -1,3 +1,4 @@
+import { UsersComponent } from './admin/components/users/users.component';
 import { ActivityComponent } from './admin/components/activities/activities.component';
 import { RecommendationsComponent } from './core/components/recommendations/recommendations.component';
 import { ActivityPreferencesComponent } from './core/components/activity-preferences/activity-preferences.component';
@@ -44,6 +45,10 @@ const routes: Routes = [
         {
           path: 'activities',
           component: ActivityComponent
+        },
+        {
+          path: 'users',
+          component: UsersComponent
         }
       ]
     },
