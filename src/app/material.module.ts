@@ -6,6 +6,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatInputModule,
     MatSelectModule,
     MatSliderModule,
+    MatCardModule,
     BrowserAnimationsModule
   ],
   exports: [
@@ -24,6 +26,7 @@ import { MatSliderModule } from '@angular/material/slider';
     MatInputModule,
     MatSliderModule,
     MatSelectModule,
+    MatCardModule,
     BrowserAnimationsModule
   ],
   providers: [ MatDatepickerModule ],

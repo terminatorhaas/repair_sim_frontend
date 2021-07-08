@@ -18,6 +18,8 @@ export class RegisterComponent implements OnInit {
 
   passwordmatches: boolean = true;
 
+  errormessage: string;
+
   error_messages = {
     'fname': [
       { type: 'required', message: 'Vorname ist benötigt.' },
@@ -116,21 +118,28 @@ export class RegisterComponent implements OnInit {
   signup() {
     console.log("Sign me Up")
     this.authService.register(this.loginForm.controls.username.value, this.loginForm.controls.email.value, this.loginForm.controls.password.value, this.loginForm.controls.fname.value,
-      this.loginForm.controls.lname.value, new Date().toLocaleTimeString('en-us', { timeZoneName: 'short' }).split('GMT')[1], "0");
-    this.timeout(1000).then(() => {
-      this.authService
-        .login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
-        .pipe(first())
-        .subscribe(
-          data => {
-            console.log("current User: " + this.authService.currentUserValue);
-            this.router.navigate(['/calender']);
-          },
-          error => {
+      this.loginForm.controls.lname.value, new Date().toLocaleTimeString('en-us', { timeZoneName: 'short' }).split('GMT')[1], "0").subscribe(
+        data => {
+          if (data.error != null) {
+            this.errormessage = data.error
           }
-        );
-    });
-
+          else {
+            this.authService.addUsertoCalender(this.loginForm.controls.username.value);
+            this.authService
+              .login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
+              .pipe(first())
+              .subscribe(
+                data => {
+                  console.log("current User: " + this.authService.currentUserValue);
+                  this.router.navigate(['/calender']);
+                },
+                error => {
+                  console.log("error")
+                  console.log(error)
+                }
+              );
+          }
+        });
   }
 
   password(formGroup: FormGroup) {
@@ -140,12 +149,12 @@ export class RegisterComponent implements OnInit {
     const { value: password } = formGroup.get('password');
     const { value: confirmPassword } = formGroup.get('confirmpassword');
     console.log("checking")
-    if (password === confirmPassword||confirmPassword=="") {
-      this.passwordmatches= true;
+    if (password === confirmPassword || confirmPassword == "") {
+      this.passwordmatches = true;
       return null
     }
     formGroup.controls.confirmpassword.setErrors({ passwordNotMatch: true });
-    this.passwordmatches= false;
+    this.passwordmatches = false;
   }
 
   /*
@@ -160,9 +169,7 @@ export class RegisterComponent implements OnInit {
     });
   }
   */
-  timeout(ms) { //pass a time in milliseconds to this function
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
+
 
 
 

@@ -1,4 +1,4 @@
-import { CalenderService } from './../services/calender.service';
+import { CalenderService } from '../../services/calender.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -23,7 +23,7 @@ export class RecommendationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNewRecommendations();
-    setTimeout(() =>{console.log(this.recommendations)},1000);
+    //setTimeout(() =>{console.log(this.recommendations)},1000);
   }
 
   getNewRecommendations(){

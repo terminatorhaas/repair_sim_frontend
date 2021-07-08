@@ -1,25 +1,29 @@
 <br>
 
 <div class="row">
-    <div class="col-sm-2"></div>
-    <div class="col-sm-8"> <div class="alert alert-info">      
+    <div class="col-12  text-center">
+        <h3>Username: {{user.username}}</h3>
+        <h3>E-Mail: {{user.email}}</h3>
+        <h3>Vorname: {{user.vorname}}</h3>
+        <h3>Nachname: {{user.nachname}}</h3>
+    </div>
+</div>
+<div class="row text-center">
+    <div class="col-12"> <div class="alert alert-info">      
         <strong>Info!</strong> Um die von der App ausgehenden Interessenvorschläge <b>OPTIMAL</b> auf Ihre Interessen anzupassen 
         makieren Sie bitte Ihre Interessen. Sie können hierbei frei entscheiden, ob Sie eine, zwei oder sogar alle Vorschläge auswählen. 
         Beachten Sie hierbei nur, dass die von der App vorgeschlagenen Aktivitäten sich auf Ihre hier angegeben Interssen bezieht
         </div>
     </div>
-    <div class="col-sm-2"></div>
 </div>
 <hr>
-<div class="row">
+<div class="row text-center">
     <div class="col-sm-2"></div>
     <div *ngIf="active" class="col-sm-8"><app-chips-multi-select [options]="options" [formControl]="chipsControl"></app-chips-multi-select></div>
     <div class="col-sm-2"></div>
 </div>
 <br><br>
 <!--<h3>Value: {{chipsControlValue$ | async}}</h3>-->
-<div class="row">
-    <div class="col-sm-5"></div>
-    <div class="col-sm-2"><button type="button" (click)="save();" class="btn btn-primary btn-block">Speichern</button></div>
-    <div class="col-sm-5"></div>
+<div class="row text-center">
+    <div class="col-col-12"><button type="button" (click)="save();" class="btn btn-primary btn-block">Speichern</button></div>
 </div>
