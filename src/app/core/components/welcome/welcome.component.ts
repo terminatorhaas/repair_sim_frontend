@@ -9,11 +9,9 @@ import { MatCarousel, MatCarouselComponent } from '@ngbmodule/material-carousel'
 export class WelcomeComponent implements OnInit {
 
   slides = [
-    {'image': 'https://picsum.photos/seed/picsum/1200/300'}, 
-    {'image': 'https://picsum.photos/seed/picsum/1200/300'},
-    {'image': 'https://picsum.photos/seed/picsum/1200/300'}, 
-    {'image': 'https://picsum.photos/seed/picsum/1200/300'}, 
-    {'image': 'https://picsum.photos/seed/picsum/1200/300'}
+    {'image': '../assets/InteressenBA.png'}, 
+    {'image': '../assets/VorschlägeBA.png'},
+    {'image': '../assets/KalenderBA.png'}
   ];
 
 
