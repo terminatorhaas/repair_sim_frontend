@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable, Subject } from 'rxjs';
 import { Calender } from '../components/calender/calender.component';
 
+/**
+ * Service for Calender and Events
+ */
 @Injectable({ providedIn: 'root' })
 export class CalenderService {
 
@@ -32,6 +35,7 @@ export class CalenderService {
         return lastValueFrom(this.http.get<any>('api/ereignis/kalender/' + kalenderID, {}));
     }
 
+    //add Event to database
     addEvent(activityid, calenderID,  activityname, date1, date2): Observable<any>{
         return this.http.post<any>('api/ereignis', {
             "aktivitaetenId": activityid,
@@ -41,7 +45,7 @@ export class CalenderService {
             "endeDatumUhr": new Date(date2).toISOString()
           })
     }
-
+    //change Event to database
     changeEvent(eventid, calenderID,  activityname, date1, date2): Observable<any>{
         return this.http.put<any>('api/ereignis/' + eventid + '/' + calenderID, {
             "kalenderId": calenderID,
@@ -50,6 +54,7 @@ export class CalenderService {
             "endeDatumUhr": new Date(date2).toISOString()
           })
     }
+    //delete Event to database
     deleteEvent(eventid, calenderID): Observable<any>{
         return this.http.delete<any>('api/ereignis/' + eventid + '/' +calenderID, {})
     }
