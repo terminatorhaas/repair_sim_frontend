@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
+/**
+ * Master Component that all core components are nested in
+ */
 @Component({
 	selector: 'app-master',
 	template: `
@@ -24,6 +27,7 @@ export class MasterComponent implements OnInit {
 		private readonly http: HttpClient
 	) {}
 
+	//get whether logged in for navbar and stuff
 	ngOnInit() {
 		this.loggedIn = !!this.authService.currentUserValue;
 		if(this.authService.currentUserValue.role==="admin"){

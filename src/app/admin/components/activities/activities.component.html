@@ -1,4 +1,6 @@
 <div class="container">
+
+    <!--Selection for interest of activities-->
     <mat-form-field appearance="fill">
         <mat-label>Interesse</mat-label>
         <mat-select (selectionChange)="loadActivities($event)">
@@ -8,6 +10,7 @@
         </mat-select>
       </mat-form-field>
 
+     <!--Activities of Interest--> 
     <div class="container rounded text-center out" style="height: 70vh">
         <div class="container-fluid overflow-auto inner" style="height: 65vh">
             <ul class="list-group lis">

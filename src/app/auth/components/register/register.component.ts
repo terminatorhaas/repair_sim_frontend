@@ -7,6 +7,10 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 
+
+/*
+Component for Registering of User
+*/
 @Component({
   selector: 'lib-register',
   templateUrl: './register.component.html',
@@ -14,12 +18,14 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
+  //register Form
   loginForm: FormGroup;
 
   passwordmatches: boolean = true;
 
   errormessage: string;
 
+  //errors for Form
   error_messages = {
     'fname': [
       { type: 'required', message: 'Vorname ist benötigt.' },
@@ -60,6 +66,7 @@ export class RegisterComponent implements OnInit {
     private readonly http: HttpClient,
     private router: Router,
   ) {
+    //validators for form
     this.loginForm = this.formBuilder.group({
       fname: new FormControl('', Validators.compose([
         Validators.required
@@ -94,29 +101,9 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  checkUsernameTaken(): ValidatorFn {
-    return (group: FormGroup): ValidationErrors => {
-      if (this.loginForm == null) {
-        return;
-      }
-      var user = this.loginForm.controls.username.value;
-      this.http.get<any>('/api/users/' + user).subscribe(data => {
-        const control1 = this.loginForm.controls.username;
-        console.log(data)
-        if (data == null) {
-          console.log("nametaken: false")
-          control1.setErrors({ nametaken: false });
-          return;
-        }
-        control1.setErrors({ nametaken: true });
-      });
-      return;
-    }
-  }
-
+  //sign up
   signup() {
-    console.log("Sign me Up")
+    //register User
     this.authService.register(this.loginForm.controls.username.value, this.loginForm.controls.email.value, this.loginForm.controls.password.value, this.loginForm.controls.fname.value,
       this.loginForm.controls.lname.value, new Date().toLocaleTimeString('en-us', { timeZoneName: 'short' }).split('GMT')[1], "0").subscribe(
         data => {
@@ -124,7 +111,9 @@ export class RegisterComponent implements OnInit {
             this.errormessage = data.error
           }
           else {
+            //add User to Calender so he can have events
             this.authService.addUsertoCalender(this.loginForm.controls.username.value);
+            //log user in
             this.authService
               .login(this.loginForm.controls.email.value, this.loginForm.controls.password.value)
               .pipe(first())

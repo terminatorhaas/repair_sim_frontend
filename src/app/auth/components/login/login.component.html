@@ -1,9 +1,12 @@
 <app-navbar></app-navbar>
+
+<!--Login Page-->
 <div class="container">
 
   <div style="margin: 30px">
     <h1 class="ion-text-center">Login</h1>
 
+    <!--Login Form-->
     <form [formGroup]="loginForm">
       <div class="form-group">
         <label>E-Mail</label>
@@ -11,6 +14,7 @@
       </div>
       <div class="error-messages">
         <ng-container *ngFor="let error of error_messages.email">
+          <!--Error if it doesnt fit constraints-->
           <div class="error-message"
             *ngIf="loginForm.get('email').hasError(error.type) && (loginForm.get('email').dirty || loginForm.get('email').touched)">
             {{ error.message }}
@@ -24,6 +28,7 @@
       </div>
       <div class="error-messages">
         <ng-container *ngFor="let error of error_messages.password">
+          <!--Error if it doesnt fit constraints-->
           <div class="error-message"
             *ngIf="loginForm.get('password').hasError(error.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
             {{ error.message }}

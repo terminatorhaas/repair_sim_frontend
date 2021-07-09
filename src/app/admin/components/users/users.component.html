@@ -1,1 +1,16 @@
-<p>users works!</p>
+<div class="container">
+    <h1 class="text-center">Alle User:</h1>
+     <!--Activities of Interest--> 
+    <div class="container rounded text-center out" style="height: 70vh">
+        <div class="container-fluid overflow-auto inner" style="height: 65vh">
+            <ul class="list-group lis">
+                <li *ngFor="let user of users" class="list-group-item text-center item">
+                    <h3 class="fillSpace" style="float: left;">{{user.role}}: {{user.username}}</h3>
+                    <button type="button" class="btn btn-danger pull-left btn-block" (click)="deleteUser(user)" style="float: right;">Delete</button>
+                    <button type="button" class="btn btn-warning pull-left btn-block" (click)="changeUser(user)" style="float: right;">Change</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>

@@ -1,12 +1,14 @@
 import { InterestService } from './../../services/interest.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { CalenderService } from 'src/app/core/services/calender.service';
 import { AlertComponent } from 'src/app/shared/components/alert/alert.component';
+import { InterestItem } from '../../../shared/interfaces/interest';
+
+/*
+  Interest Component for admin to change what Interest
+  users can select from
+*/
 
 @Component({
   selector: 'app-interests',
@@ -15,34 +17,35 @@ import { AlertComponent } from 'src/app/shared/components/alert/alert.component'
 })
 export class InterestsComponent implements OnInit {
 
-  interests: any[];
-  errorMessage;
+  interests: InterestItem[];
+
+  errorMessage: string;
+
+  //inject Service for interests
   constructor(
     private interestService: InterestService,
-    private authService: AuthService,
-    private calenderService: CalenderService,
     private modal: NgbModal,
-    private router: Router
   ) { }
 
+  //get all interests to select from
   ngOnInit(): void {
     this.interestService.getInterests().subscribe(data => {
       this.interests = data;
       this.sortInterests();
     });
-    //setTimeout(() =>{console.log(this.recommendations)},1000);
   }
 
+  //sort interests
   sortInterests(){
     this.interests.sort(function (x, y) {
       return x.interessenBezeichnung.localeCompare(y.interessenBezeichnung);
     });
   }
 
-
-
+  //remove interest
   remove(element) {
-      //remove it
+
+      //initialize Modal
       const modalRef = this.modal.open(AlertComponent);
       modalRef.componentInstance.mode = "delete";
       modalRef.componentInstance.title = "Bist du dir Sicher, dass du das Interesse mit allen Aktivitäten löschen möchtest?";
@@ -59,8 +62,10 @@ export class InterestsComponent implements OnInit {
       }, () => { console.log('Backdrop click') });
   }
 
+  //Create new Interest
   createInterest() {
-    console.log("create");
+    
+    //initialize Modal
     const modalRef = this.modal.open(AlertComponent);
     modalRef.componentInstance.mode = "add";
     modalRef.componentInstance.title = "Neues Interesse Hinzufügen";
@@ -74,6 +79,7 @@ export class InterestsComponent implements OnInit {
     }, () => { console.log('Backdrop click') });
   }
 
+  //Change Interest
   changeInterest(element) {
     console.log("change");
     const modalRef = this.modal.open(AlertComponent);

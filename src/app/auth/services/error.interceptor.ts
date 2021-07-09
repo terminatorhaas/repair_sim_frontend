@@ -11,10 +11,14 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
+/**
+ * Class to Intercept all errors during http requests
+ */
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 	constructor(private authService: AuthService) {}
 
+	//intercept error during http
 	intercept(
 		request: HttpRequest<any>,
 		next: HttpHandler

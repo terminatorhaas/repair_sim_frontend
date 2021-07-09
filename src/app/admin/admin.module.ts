@@ -10,6 +10,9 @@ import { AppModule } from '../app.module';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
+
+//Module for admins
+
 @NgModule({
   declarations: [
     InterestsComponent,

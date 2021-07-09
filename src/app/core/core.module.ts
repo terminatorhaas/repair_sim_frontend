@@ -31,7 +31,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
-
+/**
+ * Core Module for basic functionality off App
+ */
 @NgModule({
   imports: [
     SharedModule,
@@ -46,20 +48,6 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatDatepickerModule,
-    MatChipsModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatDividerModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MaterialModule,
-    MatSliderModule,  
     MatCarouselModule.forRoot(),
     CalendarModule.forRoot({
       provide: DateAdapter,

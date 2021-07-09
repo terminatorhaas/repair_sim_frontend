@@ -25,6 +25,9 @@ import { WelcomeComponent } from '../core/components/welcome/welcome.component';
 import { MatCarouselModule } from '@ngbmodule/material-carousel';
 import { AlertComponent } from './components/alert/alert.component';
 
+/**
+ * Shared Module for everything that should be can be used by all components
+ */
 @NgModule({
   imports: [
     CommonModule,
@@ -38,20 +41,6 @@ import { AlertComponent } from './components/alert/alert.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    MatDatepickerModule,
-    MatChipsModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatDividerModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MaterialModule,
-    MatSliderModule,  
     MatCarouselModule.forRoot(),
     RouterModule,
 

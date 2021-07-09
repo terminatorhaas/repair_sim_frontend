@@ -1,0 +1,42 @@
+ul {
+    text-align: center;
+    list-style: inside;
+  }
+  
+  .out {
+    background: #264653;
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  
+  .lis {
+  margin: 0;
+  padding: 0;
+  }
+  
+  
+  .inner {
+  background: #2A9D8F;
+  position: absolute;
+  top: 50%;
+  margin-top: -32.5vh;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  }
+  
+  .item{
+  background: #E9C46A;
+  }
+  
+  .btn-block {
+  height: 60px;
+  width: 80px;
+  }
+  
+  .fillSpace
+  {
+   display:inline-block;
+    padding:0;margin:0;
+    font-size:1.6vw
+  }

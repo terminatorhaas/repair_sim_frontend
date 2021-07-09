@@ -1,12 +1,15 @@
 <div class="container">
     <h1 class="text-center">Mögliche Interessen:</h1>
 
+    <!--Display Interest--> 
     <div class="container rounded text-center out" style="height: 70vh">
         <div class="container-fluid overflow-auto inner" style="height: 65vh">
             <ul class="list-group lis">
                 <li *ngFor="let interest of interests" class="list-group-item text-center item">
                     <h3 class="fillSpace" style="float: left;">{{interest.interessenBezeichnung}}</h3>
+                    <!--Option to remove--> 
                     <button type="button" class="btn btn-danger pull-left btn-block" (click)="remove(interest)" style="float: right;">Delete</button>
+                    <!--Option to change--> 
                     <button type="button" class="btn btn-warning pull-left btn-block" (click)="changeInterest(interest)" style="float: right;">Change</button>
                 </li>
             </ul>

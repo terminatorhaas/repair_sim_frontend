@@ -1,7 +1,8 @@
-/**
- * Based on
- * https://github.com/cornflourblue/angular-7-jwt-authentication-example
- */
+/*
+	Service for Authenticating User
+	Based on
+	https://github.com/cornflourblue/angular-7-jwt-authentication-example
+*/
 
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -21,46 +22,42 @@ export interface ApplicationUser {
 	providedIn: 'root'
 })
 export class AuthService {
+
+	//currentUser
 	private currentUserSubject: BehaviorSubject<ApplicationUser>;
+
+	//Observable for other Classes to check
 	public currentUser: Observable<ApplicationUser>;
+	//timer for Logout
 	private timerLogout: boolean = false;
 
 	constructor(private readonly http: HttpClient, private router: Router,) {
+		//get User from local storage
 		this.currentUserSubject = new BehaviorSubject<ApplicationUser>(
 			JSON.parse(localStorage.getItem('currentUser'))
 		);
+		//get Observable out
 		this.currentUser = this.currentUserSubject.asObservable();
+		//start Timer for logout
 		if(this.timerLogout===false){
 			this.startLogoutTokenTimer();
 		}
 	}
 
 	ngOnInit(): void {
+		//start Timer for logout
 		this.startLogoutTokenTimer();
 	}
 
 	public get currentUserValue(): ApplicationUser {
+		//getter for User
 		return this.currentUserSubject.value;
 	}
 
+	//login User
 	login(email: string, password: string) {
-		/*
-		return this.http.post<any>('/api/users/login', { username, password }).pipe(
-			map(user => {
-				// login successful if there's a jwt token in the response
-				if (user && user.accessToken) {
-					// store; user; details; and; jwt; token in local
-					// storage; to; keep; user; logged in between; page; refreshes;
-
-					localStorage.setItem('currentUser', JSON.stringify(user));
-					this.currentUserSubject.next(user);
-				}
-
-				return user;
-			})
-		);
-		*/
 		console.log("logging in..");
+		//get Jwt token
 		return this.http.post<any>('/api/users/login', {
 			"email": email,
 			"passwort": password
@@ -69,14 +66,10 @@ export class AuthService {
 				console.log(user);
 				// login successful if there's a jwt token in the response
 				if (user) {
-					// store; user; details; and; jwt; token in local
-					// storage; to; keep; user; logged in between; page; refreshes;
-					console.log(user.timeout);
+					// store user details and jwt; token in local
+					// storage to keep user logged in between page refreshes;
 					var time: number = user.timeout.split("s")[0];
-					console.log(time);
 					user.timeout = new Date(new Date().getTime() + time*1000);
-					console.log("expires in: " + user.timeout)
-					console.log(user.timeout)
 					localStorage.setItem('currentUser', JSON.stringify(user));
 					this.currentUserSubject.next(user);
 				}
@@ -90,6 +83,7 @@ export class AuthService {
 	
 	}
 
+	//register a new User
 	register(username: string, email: string, password: string, vorname: string, nachname: string, zeitzone: string, adminFlag: string) :Observable<any>{
 		return this.http.post<any>('/api/users/', {
 			"username": username,
@@ -102,6 +96,7 @@ export class AuthService {
 		});
 	}
 
+	//add User to a new Calender
 	addUsertoCalender(username){
 			this.http.post<any>('/api/kalender/', { "bezeichnung": "Standard" }).subscribe(data => {
 				console.log("Kalender Id" + data.kalenderID)
@@ -110,12 +105,10 @@ export class AuthService {
 			});
 	}
 
+	//logout timer
 	private startLogoutTokenTimer() {
 		if(this.currentUserValue===null) return;
 		setTimeout(() =>{
-        // set a timeout to refresh the token a minute before it expires
-		//console.log("Timeout in");
-		//console.log(new Date(this.currentUserValue.timeout).toString());
 		if(this.currentUserValue.timeout===null){
 			return;
 		}
@@ -131,6 +124,7 @@ export class AuthService {
 		},1000);
     }
 
+	//log user out
 	logout() {
 		// remove user from local storage to log user out
 		localStorage.removeItem('currentUser');
@@ -138,7 +132,8 @@ export class AuthService {
 		this.router.navigate(["/login"]);
 	}
 
-	timeout(ms) { //pass a time in milliseconds to this function
+	//timeout
+	timeout(ms) { 
 		return new Promise(resolve => setTimeout(resolve, ms));
 	}
 }

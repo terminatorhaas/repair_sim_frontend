@@ -1,3 +1,4 @@
+import { UserItem } from '../../interfaces/user';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -9,6 +10,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class AlertComponent implements OnInit {
 
+  //inputs to change the Component
   @Input() mode;
   @Input() name;
   @Input() title;
@@ -16,6 +18,8 @@ export class AlertComponent implements OnInit {
   @Input() aktivitaetsBezeichnung;
   @Input() aktivitaetsSatz;
 
+  @Input() username;
+  @Input() role;
 
   constructor(public activeModal: NgbActiveModal) { }
 

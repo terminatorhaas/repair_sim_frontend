@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatCarousel, MatCarouselComponent } from '@ngbmodule/material-carousel';
 
+/**
+ * Welcome Component to welcome new Users
+ */
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',

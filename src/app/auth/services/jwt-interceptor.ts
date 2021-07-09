@@ -9,10 +9,13 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 
+/**
+ * Class to add jwt token to all http requests
+ */
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 	constructor(private authService: AuthService) {}
-
+	//intercept request
 	intercept(
 		request: HttpRequest<any>,
 		next: HttpHandler

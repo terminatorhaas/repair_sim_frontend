@@ -1,14 +1,18 @@
 <div class="container-fluid h-100">
+  <!--Calender-->
   <div id="calender" class="row text-center">
     <div class="col-md">
       <div class="btn-group">
+        <!--last time period-->
         <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()">
           Letzte
         </div>
+        <!--this time period-->
         <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
           Heute
         </div>
+        <!--next time period-->
         <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
           (viewDateChange)="closeOpenMonthViewDay()">
           Nächste
@@ -16,16 +20,20 @@
       </div>
     </div>
     <div class="col-md">
+      <!--Current Date-->
       <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'de' }}</h3>
     </div>
     <div class="col-md">
       <div class="btn-group">
+        <!--Month view-->
         <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
           Monat
         </div>
+        <!--week view-->
         <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
           Woche
         </div>
+        <!--day view-->
         <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
           Tag
         </div>
@@ -33,6 +41,7 @@
     </div>
   </div>
   <br />
+  <!--calender views-->
   <div class="row overflow-auto" [ngSwitch]="view">
     <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
       [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
@@ -48,164 +57,3 @@
     </mwl-calendar-day-view>
   </div>
 </div>
-
-<!-- Everything you see below is just for the demo, you don't need to include it in your app 
-
-
-  <br /><br /><br />
-  
-  <h3>
-    Edit events
-    <button class="btn btn-primary float-right" (click)="addNewEvent()">
-      Add new
-    </button>
-    <div class="clearfix"></div>
-  </h3>
-  
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Primary color</th>
-          <th>Secondary color</th>
-          <th>Starts at</th>
-          <th>Ends at</th>
-          <th>Remove</th>
-        </tr>
-      </thead>
-  
-      <tbody>
-        <tr *ngFor="let event of events">
-          <td>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="event.title"
-              (keyup)="refresh.next()"
-            />
-          </td>
-          <td>
-            <input
-              type="color"
-              [(ngModel)]="event.color.primary"
-              (change)="refresh.next()"
-            />
-          </td>
-          <td>
-            <input
-              type="color"
-              [(ngModel)]="event.color.secondary"
-              (change)="refresh.next()"
-            />
-          </td>
-          <td>
-            <input
-              class="form-control"
-              type="text"
-              mwlFlatpickr
-              [(ngModel)]="event.start"
-              (ngModelChange)="refresh.next()"
-              [altInput]="true"
-              [convertModelValue]="true"
-              [enableTime]="true"
-              dateFormat="Y-m-dTH:i"
-              altFormat="F j, Y H:i"
-              placeholder="Not set"
-            />
-          </td>
-          <td>
-            <input
-              class="form-control"
-              type="text"
-              mwlFlatpickr
-              [(ngModel)]="event.end"
-              (ngModelChange)="refresh.next()"
-              [altInput]="true"
-              [convertModelValue]="true"
-              [enableTime]="true"
-              dateFormat="Y-m-dTH:i"
-              altFormat="F j, Y H:i"
-              placeholder="Not set"
-            />
-          </td>
-          <td>
-            <button class="btn btn-danger" (click)="deleteEvent(event)">
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
--->
-<ng-template #modalContent let-close="close">
-  <div class="modal-header">
-    <h5 class="modal-title">Event action occurred</h5>
-    <button type="button" class="close" (click)="close()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div>
-      Action:
-      <pre>{{ modalData?.action }}</pre>
-    </div>
-    <div>
-      Event:
-      <pre>{{ modalData?.event | json }}</pre>
-    </div>
-
-    <mat-form-field class="example-full-width">
-      <mat-label>Activity</mat-label>
-      <input matInput placeholder="Activity" [(ngModel)]=" modalData?.event.title">
-    </mat-form-field>
-    <p>Start</p>
-    <div class="col-12">
-      <mat-form-field>
-        <mat-label>Start</mat-label>
-        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [(ngModel)]=" modalData?.event.start">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <ngx-mat-datetime-picker #picker>
-        </ngx-mat-datetime-picker>
-      </mat-form-field>
-    </div>
-    <p>End</p>
-    <div class="col-12">
-      <mat-form-field>
-        <mat-label>End</mat-label>
-        <input matInput [ngxMatDatetimePicker]="picker2" placeholder="Choose a date" [(ngModel)]=" modalData?.event.end">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <ngx-mat-datetime-picker #picker2>
-        </ngx-mat-datetime-picker>
-      </mat-form-field>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button class="float-left" type="button" class="btn btn-success" (click)="deleteEvent(modalData?.event); close()">
-      Save
-    </button>
-    <button type="button" class="btn btn-danger" (click)="deleteEvent(modalData?.event); close()">
-      Delete
-    </button>
-  </div>
-</ng-template>
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="dateOfBirth">Date of birth</label>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-  </div>
-</ng-template>

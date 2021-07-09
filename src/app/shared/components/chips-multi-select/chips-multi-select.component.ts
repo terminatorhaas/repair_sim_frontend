@@ -10,6 +10,10 @@ import { MatChip, MatChipList } from '@angular/material/chips';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { map } from 'rxjs/operators';
 
+
+/**
+ * ChipsComponent for multi selection
+ */
 @UntilDestroy()
 @Component({
   selector: 'app-chips-multi-select',

@@ -1,3 +1,4 @@
+<!--Modal for events-->
 <div class="modal-header">
   <h4 *ngIf="name==='Add'" class="modal-title">Neues Event hinzufügen!</h4>
   <h4 *ngIf="name==='Edit'" class="modal-title">Existierendes Event editieren!</h4>
@@ -10,19 +11,6 @@
     <mat-label>Event</mat-label>
     <input matInput placeholder="Eventname" [(ngModel)]="activityname">
   </mat-form-field>
-
-  <!--
-  <div class="col-12">
-    <mat-form-field appearance="fill">
-      <mat-label>Color</mat-label>
-      <mat-select [(value)]="selectedcolor">
-        <mat-option *ngFor="let color of colorsArray" [value]="color[0]">
-          {{color[0]}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  -->
 
   <p>Start</p>
   <div class="col-12">
@@ -44,6 +32,7 @@
       </ngx-mat-datetime-picker>
     </mat-form-field>
   </div>
+  <!--Display Error if start >= enddate -->
   <div class="col-12">
     <div *ngIf="dateerror" class="alert alert-danger" role="alert">
       Start Datum kann nicht vor dem End Datum sein!

@@ -4,16 +4,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 
+/*
+Component for Login of User
+*/
 @Component({
 	templateUrl: 'login.component.html',
 	styleUrls: ['login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+	//Login Form
 	loginForm: FormGroup;
 	submitted = false;
 	returnUrl: string;
 	error: string;
 
+	//Errors for Form
 	error_messages = {
 		'email': [
 		  { type: 'required', message: 'Email ist benötigt.' },
@@ -30,6 +36,7 @@ export class LoginComponent implements OnInit {
 		private router: Router,
 		private authService: AuthService
 	) {
+		//Validators
 		this.loginForm = this.formBuilder.group({
 			email: new FormControl('', Validators.compose([
 			  Validators.required,
@@ -57,10 +64,12 @@ export class LoginComponent implements OnInit {
 
 	}
 
+	//fast way to get loginControls
 	get f() {
 		return this.loginForm.controls;
 	}
 
+	//submit to get logged in
 	onSubmit() {
 		this.submitted = true;
 

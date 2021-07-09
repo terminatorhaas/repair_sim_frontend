@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+
+  //inputs to tell if logged in and or admin
   @Input() loggedIn: boolean;
   @Input() admin: boolean;
   @Output() newItemEvent = new EventEmitter<any>();

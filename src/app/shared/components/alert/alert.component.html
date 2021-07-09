@@ -1,30 +1,50 @@
+<!--Alert Component for add/remove/change interst activity user-->
+<!--depending on mode-->
 <div class="modal-header">
-    <h4 class="modal-title">{{title}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <mat-form-field *ngIf="mode==='add'||mode==='change'" class="example-full-width">
-      <mat-label>Interessenbezeichnung</mat-label>
-      <input matInput placeholder="Interessenbezeichnung" [(ngModel)]="name">
-    </mat-form-field>
+  <h4 class="modal-title">{{title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <mat-form-field *ngIf="mode==='add'||mode==='change'" class="example-full-width">
+    <mat-label>Interessenbezeichnung</mat-label>
+    <input matInput placeholder="Interessenbezeichnung" [(ngModel)]="name">
+  </mat-form-field>
 
-    <div class="col-12">
-        <mat-form-field *ngIf="mode==='changeActivity'||mode==='addActivity'" class="example-full-width">
-            <mat-label>AktivitaetsBezeichnung</mat-label>
-            <input matInput placeholder="AktivitaetsBezeichnung" [(ngModel)]="aktivitaetsBezeichnung">
-        </mat-form-field>
-    </div>
-    <div class="col-12">
-        <mat-form-field *ngIf="mode==='changeActivity'||mode==='addActivity'" class="example-full-width">
-            <mat-label>AktivitaetsSatz</mat-label>
-            <input matInput placeholder="AktivitaetsSatz" [(ngModel)]="aktivitaetsSatz">
-        </mat-form-field>
-    </div>
-  
+  <div class="col-12">
+    <mat-form-field *ngIf="mode==='changeActivity'||mode==='addActivity'" class="example-full-width">
+      <mat-label>AktivitaetsBezeichnung</mat-label>
+      <input matInput placeholder="AktivitaetsBezeichnung" [(ngModel)]="aktivitaetsBezeichnung">
+    </mat-form-field>
+  </div>
+  <div class="col-12">
+    <mat-form-field *ngIf="mode==='changeActivity'||mode==='addActivity'" class="example-full-width">
+      <mat-label>AktivitaetsSatz</mat-label>
+      <input matInput placeholder="AktivitaetsSatz" [(ngModel)]="aktivitaetsSatz">
+    </mat-form-field>
+  </div>
+
+  <div class="col-12">
+    <mat-form-field *ngIf="mode==='changeUser'" class="example-full-width">
+      <mat-label>Username</mat-label>
+      <input matInput placeholder="username" [(ngModel)]="username" readonly>
+    </mat-form-field>
+  </div>
+  <div class="col-12">
+    <mat-form-field *ngIf="mode==='changeUser'" appearance="fill">
+      <mat-label>Rolle auswählen</mat-label>
+      <mat-select [(value)]="role">
+        <mat-option value="admin">admin</mat-option>
+        <mat-option value="user">user</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <div class="modal-footer">
-    <button *ngIf="mode==='change'||mode==='changeActivity'" type="button" class="btn btn-warning" (click)="change()">Change</button>
+    <button *ngIf="mode==='change'||mode==='changeActivity' ||mode==='changeUser'" type="button" class="btn btn-warning"
+      (click)="change()">Change</button>
     <button *ngIf="mode==='delete'" type="button" class="btn btn-danger" (click)="delete()">Delete</button>
-    <button *ngIf="mode==='add'||mode==='addActivity'" type="button" class="btn btn-success" (click)="save()">Save</button>
+    <button *ngIf="mode==='add'||mode==='addActivity'" type="button" class="btn btn-success"
+      (click)="save()">Save</button>
   </div>

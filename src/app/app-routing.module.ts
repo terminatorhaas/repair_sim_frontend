@@ -12,6 +12,10 @@ import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
 import { InterestsComponent } from './admin/components/interests/interests.component';
 
+/**
+ * Routing off Application
+ * Components that are only available if logged in are protected by AuthGuard
+ */
 const routes: Routes = [
     {
       path: 'welcome',

@@ -2,6 +2,9 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
+/**
+ * Event Component for Modal to Add Remove Or Change Events
+ */
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
@@ -9,17 +12,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class EventComponent implements OnInit {
 
+  //Inputs
   @Input() name;
   @Input() colors;
   @Input() eventname: string;
   @Input() date1: Date;
   @Input() date2: Date;
 
-  /*
-  colorsArray = [];
-  selectedcolor;
-  exportcolor;
-  */
+
  dateerror = false;
 
   public dateControl1 = new FormControl();
@@ -28,6 +28,7 @@ export class EventComponent implements OnInit {
   activityname :string;
   constructor(public activeModal: NgbActiveModal) { }
 
+  //Initialize date Controlls
   ngOnInit(): void {
     this.dateControl1.setValue(new Date(this.date1));
     this.dateControl2.setValue(new Date(this.date2));
@@ -36,7 +37,7 @@ export class EventComponent implements OnInit {
     if(this.eventname!=null){
       this.activityname = this.eventname;
     }
-
+    //subscribe to changes
     this.dateControl1.valueChanges.subscribe(x => {
       if(this.dateControl1.value<this.dateControl2.value){
         this.dateerror = false;
@@ -51,11 +52,13 @@ export class EventComponent implements OnInit {
  })
   }
   save(){
+    //save event
     if(this.dateControl1.value<this.dateControl2.value){
       this.activeModal.close('save');
     }
     else this.dateerror = true;
   }
+  //delete event
   delete(){
     this.activeModal.close('delete');
   }

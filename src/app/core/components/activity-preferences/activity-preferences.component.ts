@@ -1,16 +1,17 @@
 import { InterestsService } from './../../services/interests.service';
 import { UserService } from './../../services/user.service';
-import { ChipsMultiSelectComponent } from '../../../shared/components/chips-multi-select/chips-multi-select.component';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ControlValueAccessor, FormControl } from '@angular/forms';
-import { MatChip, MatChipList } from '@angular/material/chips';
+import { Component, OnInit} from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { untilDestroyed } from '@ngneat/until-destroy';
 import { lastValueFrom } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserItem } from 'src/app/shared/interfaces/user';
 
 
-
+/**
+ * Settings for interests of user
+ */
 @Component({
   selector: 'app-activity-preferences',
   templateUrl: './activity-preferences.component.html',
@@ -18,6 +19,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class ActivityPreferencesComponent implements OnInit {
 
+  //Inject Services
   constructor(
     private readonly http: HttpClient,
     private authService: AuthService,
@@ -28,8 +30,9 @@ export class ActivityPreferencesComponent implements OnInit {
 
   active: boolean = false;
   options: string[];
-  user: any;
+  user: UserItem;
 
+  //Controls for interests
   optionsWithKey = new Map<string, number>();
   optionsToDelete = new Map<string, number>();
   chipsControl
@@ -37,23 +40,24 @@ export class ActivityPreferencesComponent implements OnInit {
 
   disabledControl = new FormControl(false);
 
+  //set the value off chips
   setChipsValue() {
     this.chipsControl.setValue(['Denksport', 'Ballsport']);
   }
 
+  //get Interests of User on initialization
   ngOnInit() {
     this.userService.getUser(this.authService.currentUserValue.username).subscribe(data =>{
       this.user= data;
-      console.log(data);
     });
+    //get Interests for User
     this.getInteressen().then(res => {
       this.options = res;
       console.log(this.options)
       this.chipsControl = new FormControl();
 
       this.getSelectedInteressen().then(res => {
-        console.log("ausgewählte Interessen");
-        console.log(res);
+        //get already selected Interests
         this.chipsControl.value = res;
 
         this.chipsControlValue$ = this.chipsControl.valueChanges;
@@ -72,13 +76,14 @@ export class ActivityPreferencesComponent implements OnInit {
 
   }
 
+  //get Options to delete to seperate mnap
   intitializeOptionsToDelete() {
-    //Copy Map
     this.optionsWithKey.forEach((value, key) => {
       this.optionsToDelete.set(key, value);
     })
   }
 
+  //subsrbe to changes
   ngAfterViewInit() {
     this.disabledControl.valueChanges
       .pipe(untilDestroyed(this))
@@ -88,68 +93,56 @@ export class ActivityPreferencesComponent implements OnInit {
       });
   }
 
+  //get all interest
   async getInteressen(): Promise<any> {
     var interessen = new Array();
-    var local = await this.interestService.getInteressenBackend();
+    var locinterests = await this.interestService.getInteressenBackend();
 
-    console.log("result")
-    console.log(local)
-    local.forEach(element => {
+    locinterests.forEach(element => {
+      //copy to map
       this.optionsWithKey.set(element.interessenBezeichnung, element.interessenID);
+      //push into interessen
       interessen.push(element.interessenBezeichnung);
     });
-    console.log("Interessen: ")
-    console.log(interessen);
     return interessen;
-    //this.options = interessen;
   }
 
+  //get selected interests from backend
   async getSelectedInteressen(): Promise<any> {
     var interessen = new Array();
-    var local = await this.getSelectedInteressenBackend();
-
-    console.log("result")
-    console.log(local)
-    local.forEach(element => {
+    var locinterests = await this.interestService.getSelectedInteressenBackend(this.authService.currentUserValue.username);
+    locinterests.forEach(element => {
       this.optionsWithKey.set(element.interessenBezeichnung, element.interessenID);
       interessen.push(element.interessenBezeichnung);
     });
     console.log("Interessen: ")
     console.log(interessen);
     return interessen;
-    //this.options = interessen;
   }
 
-  async getSelectedInteressenBackend(): Promise<any> {
-    const res2 = await lastValueFrom(this.http.get<any>('api/users/' + this.authService.currentUserValue.username + '/Interessen', {}));
-    return res2;
-  }
-
+  //save settings
   save() {
+    //add all interests that are selected delete the rest
     this.addSelected().then(res =>{
       this.deleteNotSelected();
     })
-    //this.intitializeOptionsToDelete();
   }
 
+  //add selected
   async addSelected(){
     var addedInterests = this.chipsControl.value;
 
     addedInterests.forEach(async interest => {
       this.optionsToDelete.delete(interest);
-      //console.log('/api/users/' + this.authService.currentUserValue.username + '/interesse/' + this.optionsWithKey.get(interest));
       await this.interestService.addSelectedBackend(this.authService.currentUserValue.username, this.optionsWithKey.get(interest));
-      //this.http.put<any>('/api/users/' + this.authService.currentUserValue.username + '/interesse/' + this.optionsWithKey.get(interest), {}).subscribe();
     });
     return;
   }
 
+  //delete not selected
   deleteNotSelected(){
     this.optionsToDelete.forEach((key, value) => {
-      console.log("delete:" + key)
-      console.log('/api/users/' + this.authService.currentUserValue.username + '/interessen/' + key)
-      //this.http.delete<any>('/api/users/terminatorhaas/interessen/7', {});
-      this.http.delete<any>('/api/users/' + this.authService.currentUserValue.username + '/interessen/' + key).subscribe(() => console.log('Delete successful'));;
+      this.interestService.deleteSelectedInteressenBackend(this.authService.currentUserValue.username, key).subscribe(() => console.log('Delete successful'));
     })
   }
 

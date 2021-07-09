@@ -8,6 +8,9 @@ import {
 } from '@angular/router';
 import { AuthService } from './services/auth.service';
 
+/**
+ * Guard that only lets U on page if logged in
+ */
 @Injectable({
 	providedIn: 'root'
 })
