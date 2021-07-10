@@ -25,5 +25,7 @@
 </div>
 <br><br>
 <div class="row text-center">
-    <div class="col-col-12"><button type="button" (click)="save();" class="btn btn-primary btn-block">Speichern</button></div>
+    <div class="col-col-12"><button type="button" (click)="save();" class="btn btn-primary btn-block">Speichern
+        <i *ngIf="!chipsValueChanged" class="bi bi-check-lg"></i>
+    </button></div>
 </div>

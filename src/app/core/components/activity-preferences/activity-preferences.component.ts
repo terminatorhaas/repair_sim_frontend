@@ -32,6 +32,9 @@ export class ActivityPreferencesComponent implements OnInit {
   options: string[];
   user: UserItem;
 
+  //set if chips value has been changes since last save
+  chipsValueChanged: boolean;
+
   //Controls for interests
   optionsWithKey = new Map<string, number>();
   optionsToDelete = new Map<string, number>();
@@ -62,9 +65,17 @@ export class ActivityPreferencesComponent implements OnInit {
 
         this.chipsControlValue$ = this.chipsControl.valueChanges;
 
+        //check if value has been changed to remove icon from save so you know its not yet saved
+        this.chipsControlValue$.pipe(untilDestroyed(this))
+        .subscribe((val) => {
+          this.chipsValueChanged = true;
+        });
+
         this.disabledControl.valueChanges
           .pipe(untilDestroyed(this))
           .subscribe((val) => {
+            console.log("changed")
+            this.chipsValueChanged = true;
             if (val) this.chipsControl.disable();
             else this.chipsControl.enable();
           });
@@ -125,6 +136,7 @@ export class ActivityPreferencesComponent implements OnInit {
     //add all interests that are selected delete the rest
     this.addSelected().then(res =>{
       this.deleteNotSelected();
+      this.chipsValueChanged = false;
     })
   }
 
