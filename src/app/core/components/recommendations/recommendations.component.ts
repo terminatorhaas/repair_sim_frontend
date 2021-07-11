@@ -1,3 +1,4 @@
+import { RecommendationService } from './../../services/recommendation.service';
 import { CalenderService } from '../../services/calender.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { HttpClient } from '@angular/common/http';
@@ -23,6 +24,7 @@ export class RecommendationsComponent implements OnInit {
     private http: HttpClient,
     private authService: AuthService,
     private calenderService: CalenderService,
+    private recommendationService: RecommendationService,
     private router: Router
   ) { }
 
@@ -44,7 +46,7 @@ export class RecommendationsComponent implements OnInit {
   getRecommendation(){
     //only add Recommendation if it is not already present
     var add = true;
-      this.http.get<any>('api/users/' + this.authService.currentUserValue.username + '/vorschlaege', {}).subscribe((data) => {
+      this.recommendationService.getRecommendationBackend(this.authService.currentUserValue.username).subscribe((data) => {
         add = true;
         this.recommendations.forEach(element => {
           if(element.aktivitaetsBezeichnung===data.aktivitaetsBezeichnung){

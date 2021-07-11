@@ -1,3 +1,4 @@
+import { InterestItem } from './../../../shared/interfaces/interest';
 import { InterestsService } from './../../services/interests.service';
 import { UserService } from './../../services/user.service';
 import { HttpClient } from '@angular/common/http';
@@ -37,6 +38,7 @@ export class ActivityPreferencesComponent implements OnInit {
 
   //Controls for interests
   optionsWithKey = new Map<string, number>();
+  optionsPrevSelect = new Map<string, number>();
   optionsToDelete = new Map<string, number>();
   chipsControl
   chipsControlValue$;
@@ -123,7 +125,7 @@ export class ActivityPreferencesComponent implements OnInit {
     var interessen = new Array();
     var locinterests = await this.interestService.getSelectedInteressenBackend(this.authService.currentUserValue.username);
     locinterests.forEach(element => {
-      this.optionsWithKey.set(element.interessenBezeichnung, element.interessenID);
+      this.optionsPrevSelect.set(element.interessenBezeichnung, element.interessenID);
       interessen.push(element.interessenBezeichnung);
     });
     console.log("Interessen: ")
@@ -131,28 +133,47 @@ export class ActivityPreferencesComponent implements OnInit {
     return interessen;
   }
 
+
+
   //save settings
   save() {
     //add all interests that are selected delete the rest
     this.addSelected().then(res =>{
       this.deleteNotSelected();
       this.chipsValueChanged = false;
+      this.initializePrevSelected();
     })
   }
 
   //add selected
   async addSelected(){
     var addedInterests = this.chipsControl.value;
+    console.log("added Interests: " + addedInterests)
 
     addedInterests.forEach(async interest => {
-      this.optionsToDelete.delete(interest);
-      await this.interestService.addSelectedBackend(this.authService.currentUserValue.username, this.optionsWithKey.get(interest));
+      if(!this.optionsPrevSelect.get(interest)){
+        await this.interestService.addSelectedBackend(this.authService.currentUserValue.username, this.optionsWithKey.get(interest));
+      }
     });
     return;
   }
 
+  //Initialize Previous Selection
+  async initializePrevSelected(){
+    this.optionsPrevSelect.clear();
+    var locinterests = await this.interestService.getSelectedInteressenBackend(this.authService.currentUserValue.username);
+    locinterests.forEach(element => {
+      this.optionsPrevSelect.set(element.interessenBezeichnung, element.interessenID);
+    });
+  }
+
   //delete not selected
   deleteNotSelected(){
+    this.intitializeOptionsToDelete();
+    var addedInterests = this.chipsControl.value;
+    addedInterests.forEach(async interest => {
+      this.optionsToDelete.delete(interest);
+    });
     this.optionsToDelete.forEach((key, value) => {
       this.interestService.deleteSelectedInteressenBackend(this.authService.currentUserValue.username, key).subscribe(() => console.log('Delete successful'));
     })
