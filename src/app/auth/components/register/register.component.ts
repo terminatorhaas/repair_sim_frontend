@@ -120,7 +120,7 @@ export class RegisterComponent implements OnInit {
               .subscribe(
                 data => {
                   console.log("current User: " + this.authService.currentUserValue);
-                  this.router.navigate(['/calender']);
+                  this.router.navigate(['/']);
                 },
                 error => {
                   console.log("error")
