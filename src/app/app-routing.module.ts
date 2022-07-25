@@ -31,7 +31,7 @@ const routes: Routes = [
           component: WelcomeComponent
         },
         {
-          path: 'calender',
+          path: 'simulations',
           component: CalenderComponent
         },
         {
@@ -39,7 +39,7 @@ const routes: Routes = [
           component: ActivityPreferencesComponent
         },
         {
-          path: 'recommendations',
+          path: 'insights',
           component: RecommendationsComponent
         },
         {

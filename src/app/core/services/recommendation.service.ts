@@ -13,6 +13,7 @@ export class RecommendationService {
       ) { }
       
     getRecommendationBackend(username): Observable<any>{
+        return this.http.get<any>('http://54.167.133.173:3001/simulation/'+1+'/customer/'+1+'/logevent', {});
         return this.http.get<any>('api/users/' + username + '/vorschlaege', {});
     }
 

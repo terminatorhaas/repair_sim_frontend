@@ -13,8 +13,6 @@ import { startOfDay } from 'date-fns';
 
 export interface ApplicationUser {
 	access_token: string;
-	role: string;
-	timeout: Date;
 	username: string;
 }
 
@@ -39,14 +37,10 @@ export class AuthService {
 		//get Observable out
 		this.currentUser = this.currentUserSubject.asObservable();
 		//start Timer for logout
-		if(this.timerLogout===false){
-			this.startLogoutTokenTimer();
-		}
+
 	}
 
 	ngOnInit(): void {
-		//start Timer for logout
-		this.startLogoutTokenTimer();
 	}
 
 	public get currentUserValue(): ApplicationUser {
@@ -58,9 +52,9 @@ export class AuthService {
 	login(email: string, password: string) {
 		console.log("logging in..");
 		//get Jwt token
-		return this.http.post<any>('/api/users/login', {
+		return this.http.post<any>('http://54.167.133.173:3001/auth/sign-in', {
 			"email": email,
-			"passwort": password
+			"password": password
 		}).pipe(
 			map(user => {
 				console.log(user);
@@ -68,8 +62,6 @@ export class AuthService {
 				if (user) {
 					// store user details and jwt; token in local
 					// storage to keep user logged in between page refreshes;
-					var time: number = user.timeout.split("s")[0];
-					user.timeout = new Date(new Date().getTime() + time*1000);
 					localStorage.setItem('currentUser', JSON.stringify(user));
 					this.currentUserSubject.next(user);
 				}
@@ -105,24 +97,6 @@ export class AuthService {
 			});
 	}
 
-	//logout timer
-	private startLogoutTokenTimer() {
-		if(this.currentUserValue===null) return;
-		setTimeout(() =>{
-		if(this.currentUserValue.timeout===null){
-			return;
-		}
-        const timeout = new Date(this.currentUserValue.timeout).getTime() - Date.now();
-		console.log("timeout in:" + timeout);
-		if(timeout<0){
-			this.logout();
-		}else{
-			this.timerLogout = true;
-			setTimeout(() => this.logout(), timeout);
-			console.log("startet logout timer in" + timeout)
-		}
-		},1000);
-    }
 
 	//log user out
 	logout() {
@@ -132,8 +106,4 @@ export class AuthService {
 		this.router.navigate(["/login"]);
 	}
 
-	//timeout
-	timeout(ms) { 
-		return new Promise(resolve => setTimeout(resolve, ms));
-	}
 }

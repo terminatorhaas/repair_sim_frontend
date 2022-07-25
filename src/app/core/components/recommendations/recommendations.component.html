@@ -1,23 +1,46 @@
-<div class="container">
-    <h1 class="text-center">Deine Vorschläge:</h1>
-    <!---Vorschläge für User-->
-    <div class="container rounded text-center out" style="height: 70vh">
-        <div class="container-fluid overflow-auto inner" style="height: 65vh">
-            <ul class="list-group lis">
-                <li *ngFor="let recommendation of recommendations" class="list-group-item text-center item">
-                    <button type="button" class="btn btn-success pull-right btn-block" (click)="plan(recommendation)" style="float: right;"> Ja </button>
-                    <h3 class="fillSpace">{{recommendation.aktivitaetsBezeichnung}}-{{recommendation.aktivitaetsSatz}}</h3>
-                    <button type="button" class="btn btn-danger pull-left btn-block" (click)="remove(recommendation)"
-                        style="float: left;">Nein</button>
-                </li>
-            </ul>
-            <div *ngIf="errorMessage!=null" class="alert alert-danger">
-                {{errorMessage}}
-            </div>
+<div class="container" style="background-color: #07162B;">
+    <div class="container col-xxl-9 pt-2 px-4">
+        <div class="pricing-header  mx-auto text-center">
+          <h1 class=" fw-bold lh-1" style="color:#FFFFFF; font-weight: 400; font-size:3rem">Emergency Simulation Insights</h1>
         </div>
-    </div>
-    <div class="col-12 text-center">
-        <button type="button" class="btn btn-warning" (click)="getNewRecommendations()"> Neue Vorschläge </button>
+      </div>
+    <!---Vorschläge für User-->
+    <div class="container-fluid rounded text-center" style="height: 70vh">
+        <div class="row w-100 align-items-center">
+
+            <div class="col-3  d-flex align-items-center" style="background-color: #2DC6DC; height: 2rem;">
+                <div class="align-middle text-center" style="color:#FFFFFF; font-size:larger; width:100%">Date</div>
+            </div>
+            <div class="col-3 d-flex align-items-center" style="background-color: #2DC6DC; height: 2rem;">
+                <div class="align-middle text-center" style="color:#FFFFFF; font-size:larger; width:100%">Name</div>
+            </div>
+            <div class="col-3 d-flex align-items-center" style="background-color: #2DC6DC; height: 2rem;">
+                <div class="align-middle text-center" style="color:#FFFFFF; font-size:larger; width:100%">Event</div>
+            </div>
+            <div class="col-3 d-flex align-items-center" style="background-color: #2DC6DC; height: 2rem;">
+                <div class="align-middle text-center" style="color:#FFFFFF; font-size:larger; width:100%">Time</div>
+            </div>
+
+        </div>
+
+        <div *ngFor="let event of events;">
+        <div class="row w-100 align-items-center">
+
+            <div class="col-3 align-middle" style="height: 2rem;">
+                <span  style="color:#FFFFFF; font-size:larger">{{event.timestamp}}</span>
+            </div>
+            <div class="col-3 align-middle" style="height: 2rem;">
+                <span  style="color:#FFFFFF; font-size:larger">Techniker 1</span>
+            </div>
+            <div class="col-3 align-middle" style="height: 2rem;">
+                <span  style="color:#FFFFFF; font-size:larger">{{event.type_id.event_name}}</span>
+            </div>
+            <div class="col-3 align-middle" style="height: 2rem;">
+                <span  style="color:#FFFFFF; font-size:larger">{{event.time_taken}}</span>
+            </div>
+
+        </div>
+        </div>
     </div>
 
 </div>

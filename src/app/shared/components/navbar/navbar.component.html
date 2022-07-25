@@ -1,23 +1,22 @@
 <!--Navbar-->
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark navbar-fixed-top w-100 justify-content-end">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="../assets/TaskUpLogo.png" height="40" alt="" loading="lazy" />
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
-            <div class="navbar-nav text-right">
-                <a *ngIf="admin" class="nav-item nav-link" href="/users">Verwalte User</a>
-                <a *ngIf="admin" class="nav-item nav-link" href="/activities">Verwalte Aktivitäten</a>
-                <a *ngIf="admin" class="nav-item nav-link" href="/interests">Verwalte Interessen</a>
-                <mat-divider [vertical]="true"></mat-divider>
-                <a class="nav-item nav-link" href="/calender">Kalender</a>
-                <a class="nav-item nav-link" href="/recommendations">Vorschläge</a>
-                <a class="nav-item nav-link" href="/activity-preferences">Einstellungen</a>
-                <a *ngIf="authService.currentUserValue!=null && authService.currentUserValue.username!=null" href="/login" class="nav-item nav-link" (click)="newItemEvent.emit(true)">Logout</a>
-            </div>
+<nav class="navbar navbar-expand-sm navbar-dark navbar-fixed-top w-100 justify-content-center" style="background-color: #07162B;">
+
+        <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="../assets/MarkWhite.png" height="40" alt="" loading="lazy" />
+                    <a style="color: #2DC6DC; font-weight: 550">VR</a><a style="font-weight: 550">epair - Smart Repair Services</a>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+                    <div class="navbar-nav text-right">
+                        <a class="nav-item nav-link" href="/">About</a>
+                        <a class="nav-item nav-link" href="/">Pricing</a>
+                        <a class="nav-item nav-link" href="/simulations">Simulations</a>
+                        <a class="nav-item nav-link" href="/">Contact</a>
+                        <a *ngIf="authService.currentUserValue!=null" href="/login" class="nav-item nav-link" (click)="newItemEvent.emit(true)">Logout</a>
+                    </div>
+                </div>
         </div>
-    </div>
 </nav>

@@ -1,89 +1,146 @@
 
 <!-- Welcome Page-->
-<div class="jumbotron text-center">
-    <h1>Wilkommen bei TaskUp</h1>
-    <p class="lead">
-      Leg los, indem du deine Interessen in den Einstellungen festlegst!
-    </p>
-    <a class="btn btn-lg btn-primary" href="/activity-preferences" role="button">Interessen festlegen</a>
-  </div>
-  
-  
-    <!-- Die Slidebar -->
-  <br>
-    <mat-carousel timings="250ms ease-in" [autoplay]="true" interval="5000" color="accent" maxWidth="auto" proportion="25"
-      slides="3" [loop]="true" [hideArrows]="false" [hideIndicators]="true" [useKeyboard]="true" [useMouseWheel]="true"
-      orientation="ltr">
-      <mat-carousel-slide #matCarouselSlide *ngFor="let slide of slides; let i = index" [image]="slide.image"
-        overlayColor="#00000000" [hideOverlay]="false"></mat-carousel-slide>
-    </mat-carousel><br><br>
-  
-  <!--Mental/Body Care Sektion-->
-  <section class="page-section bg" id="Text">
-    <div class="row">
-      <div class="col-lg-1"></div>
-      <div class="col-lg-4">    
-        <h3 style="font-size: 30px; text-align: center;"><strong>Mental Care</strong></h3>
-        <p style="font-size: 16px;">Psychische <strong>Gesundheit</strong> macht robust, sie lässt uns das Leben genießen, sie hilft Schmerz und Enttäuschung besser zu verkraften. Schauen Sie im Krisenfall nicht weg und bieten Sie Mitmenschen Ihre Hilfe an. Jeder kann Erste Hilfe für die <strong>Seele</strong> leisten</p>
-        </div>
-      <div class="col-lg-2"> </div>
-      <div class="col-lg-4">
-          <h3 style="font-size: 30px; text-align: center;"><strong>Body Care</strong></h3>
-           <p style="font-size: 16px;">Ein abwechslungsreiches <strong>Training</strong> aus Kraft, Ausdauer und Erholung (Stretching) hält den Körper <strong>fit und gesund</strong>. Dadurch wird der Stoffwechsel angeregt und dein Gewebe mit Sauerstoff und Nährstoffen versorgt. Zusätlich hilft es deinem Herz-Kreislauf-System, effizienter zu arbeiten. Und wenn sich deine Herz- und Lungengesundheit verbessert, hast du mehr Energie, um tägliche Aufgaben zu bewältigen.</p> 
-        </div>
-        <div class="col-lg-1"></div>
-    </div>
-  </section><br>
-  
-  <!--Unser Benefit-->
-    <div class="row text-center">
-        <div class="col-12"> <div class="alert alert-info">      
-            <p style="font-size: 17px;">Unsere <strong>TaskUp</strong> Planer App will <strong>Sie</strong> druch gezielte Reize zur Förderung Ihrer geistigen und körperlichen Fitness genau in diesen Punkten <strong>unterstützen</strong></p>
-            </div>
-        </div>
-    </div>
-
-
-  
-  
-  <!-- Team Vorstellung-->
-    <section class="page-section bg-light" id="team">
-      <div class="container">
-        <div class="text-center">
-          <h2 class="section-heading text-uppercase">Unser tolles Team!</h2>
-        </div>
-        <div class="row">
-          <div class="col-lg-3">
-            <div class="team-member text-center">
-              <img class="mx-auto rounded-circle" src="../assets/JonasHaas.png" width="150px" height="150px"alt="..." />
-              <h4>Jonas Haas</h4>
-              <p class="text-muted">Senior Front-End Entwickler</p>
-            </div>
+<div>
+  <div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3" style="color:#FFFFFF; font-weight: 400; font-size:3rem; line-height: 120%">Discover The Endless Possibilities of <a style="color:#2DC6DC">VR</a>epair</h1>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+          <div class="btn-group-vertical">
+            <p><button type="button" class="btn btn-outline-secondary btn-lg px-4 me-md-2"  style="width: 20rem;border-color:#FFFFFF;color:white"><img src="../assets/Icon.png" class="mr-2" alt="Girl in a jacket">Watch Now</button></p>
+            <p><button type="button" class="btn btn-outline-secondary btn-lg px-4 pt-2" style="width: 20rem; border-color:#a17cc4;color:white">Read Article</button></p>
           </div>
-          <div class="col-lg-3">
-            <div class="team-member text-center">
-              <img class="mx-auto rounded-circle" src="../assets/Moritz.png" width="150px" height="150px" alt="..." />
-              <h4>Moritz Moser</h4>
-              <p class="text-muted">Junior Front-End Entwickler</p>
-  
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="team-member text-center">
-              <img class="mx-auto rounded-circle" src="../assets/Dominik.png" width="150px" height="150px" alt="..." />
-              <h4>Dominik Riepl</h4>
-              <p class="text-muted">Back-End Entwickler</p>
-          
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="team-member text-center">
-              <img class="mx-auto rounded-circle" src="../assets/JonasHecke.png" width="150px" height="150px" alt="..." />
-              <h4>Jonas Heckerodt</h4>
-              <p class="text-muted">Back-End Entwickler</p>
-           
-            </div>
-          </div>
-        </div><br>
+        </div>
       </div>
-    </section>
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img src="../assets/Rectangle 33.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pricing-header  mx-auto text-center">
+  <h1 class=" fw-bold lh-1" style="color:#FFFFFF; font-weight: 400; font-size:3rem">Take a Look around</h1>
+</div>
+
+<div class="container col-xxl-12 px-4 py-8">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+  <img class="center-block" src="../assets/dings.png" style="   user-drag: none;  
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;" alt="">
+  </div>
+</div>
+
+<div class="container col-xxl-9 px-4 py-5">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-5">
+      <img src="../assets/Rectangle 34.png" class="d-block mx-lg-auto img-fluid rounded" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+    </div>
+    <div class="col-lg-7">
+      <h1 class="display-5 fw-bold lh-1 mb-3" style="color:#FFFFFF; font-weight: 400; font-size:3rem; line-height: 120%">Redefine Reality</h1>
+      <p style="color:#FFFFFF; font-size:large">Ready for gaining experience on machines that look and feel real? 
+        We don’t just want to impart knowledge, we want you to be ready in case of an emergency</p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <div class="btn-group-vertical">
+          <p><button type="button" class="btn btn-outline-secondary btn-lg px-4 pt-2" style="width: 20rem; border-color:#a17cc4;color:white">Read More</button></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pricing-header  mx-auto text-center">
+  <h1 class=" fw-bold lh-1" style="color:#FFFFFF; font-weight: 400; font-size:3rem">Read what Others have to say</h1>
+</div>
+
+<div class="container col-xxl-12 px-4 py-8">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+  <img class="center-block" src="../assets/reviews.PNG" style="   user-drag: none;  
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;" alt="">
+  </div>
+</div>
+
+<div class="container col-xxl-9 px-4 py-5">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <div class="col-10 col-sm-8 col-lg-6">
+      <img src="../assets/image.png" class="d-block mx-lg-auto img-fluid rounded" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+    </div>
+    <div class="col-lg-6">
+      <h1 class="display-5 fw-bold lh-1 mb-3" style="color:#FFFFFF; font-weight: 400; font-size:3rem; line-height: 120%">Plans That Scale With Your Business</h1>
+      <h1 class="display-5 lh-1 mb-3" style="color:#FFFFFF; font-size:2.5rem; line-height: 100%">VRepair Business Packages</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container col-xxl-12 px-4 py-8">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+  <img class="center-block" src="../assets/footer.PNG" style="   user-drag: none;  
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;" alt="">
+  </div>
+</div>
+
+<!-- <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+  <div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+      <div class="card-header py-3">
+        <h4 class="my-0 fw-normal">Free</h4>
+      </div>
+      <div class="card-body">
+        <h1 class="card-title pricing-card-title">$0<small class="text-muted fw-light">/mo</small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>10 users included</li>
+          <li>2 GB of storage</li>
+          <li>Email support</li>
+          <li>Help center access</li>
+        </ul>
+        <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm">
+      <div class="card-header py-3">
+        <h4 class="my-0 fw-normal">Pro</h4>
+      </div>
+      <div class="card-body">
+        <h1 class="card-title pricing-card-title">$15<small class="text-muted fw-light">/mo</small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>20 users included</li>
+          <li>10 GB of storage</li>
+          <li>Priority email support</li>
+          <li>Help center access</li>
+        </ul>
+        <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card mb-4 rounded-3 shadow-sm border-primary">
+      <div class="card-header py-3 text-white bg-primary border-primary">
+        <h4 class="my-0 fw-normal">Enterprise</h4>
+      </div>
+      <div class="card-body">
+        <h1 class="card-title pricing-card-title">$29<small class="text-muted fw-light">/mo</small></h1>
+        <ul class="list-unstyled mt-3 mb-4">
+          <li>30 users included</li>
+          <li>15 GB of storage</li>
+          <li>Phone and email support</li>
+          <li>Help center access</li>
+        </ul>
+        <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button>
+      </div>
+    </div>
+  </div> -->
+<!-- </div> -->
+

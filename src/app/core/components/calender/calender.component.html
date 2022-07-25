@@ -1,59 +1,33 @@
-<div class="container-fluid h-100">
-  <!--Calender-->
-  <div id="calender" class="row text-center">
-    <div class="col-md">
-      <div class="btn-group">
-        <!--last time period-->
-        <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-          (viewDateChange)="closeOpenMonthViewDay()">
-          Letzte
-        </div>
-        <!--this time period-->
-        <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
-          Heute
-        </div>
-        <!--next time period-->
-        <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
-          (viewDateChange)="closeOpenMonthViewDay()">
-          Nächste
+<div  style="background-color: #07162B;">
+
+  <div class="container col-xxl-9 pt-2 px-4">
+  <div class="pricing-header  mx-auto text-left">
+    <h1 class=" fw-bold lh-1" style="color:#FFFFFF; font-weight: 400; font-size:3rem">Emergency Simulations</h1>
+  </div>
+</div>
+
+<div class="container col-xxl-9 px-4">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <img src="../assets/image 18.png" class="d-block mx-lg-auto img-fluid rounded" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
+  </div>
+</div>
+
+<div class="container col-xxl-9 px-4 py-5">
+  <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+    <h2 class="display-5" style="color:#FFFFFF; font-weight: 200; font-size:2rem; line-height: 120%">Available training simulations</h2>
+    <div class="col-lg-7">
+      <h2 class="display-5 lh-1 mb-3" style="color:#FFFFFF; font-weight: 200; font-size:2rem; line-height: 120%">Replacement of a defective fuse</h2>
+      <p style="color:#FFFFFF; font-size:large">In order to stop production downtime a defective fuse must be replaced in this simulation.</p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <div class="btn-group-vertical">
+          <p><button type="button" (click)="getNewRecommendations();" class="btn btn-outline-secondary btn-lg px-4 pt-2" style="width: 20rem; border-color:#a17cc4;color:white">Show Insights</button></p>
         </div>
       </div>
     </div>
-    <div class="col-md">
-      <!--Current Date-->
-      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'de' }}</h3>
-    </div>
-    <div class="col-md">
-      <div class="btn-group">
-        <!--Month view-->
-        <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
-          Monat
-        </div>
-        <!--week view-->
-        <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
-          Woche
-        </div>
-        <!--day view-->
-        <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
-          Tag
-        </div>
-      </div>
+    <div class="col-10 col-sm-8 col-lg-5">
+      <img src="../assets/image 15.png" class="d-block mx-lg-auto img-fluid rounded" alt="Bootstrap Themes" width="700" height="500" loading="lazy">
     </div>
   </div>
-  <br />
-  <!--calender views-->
-  <div class="row overflow-auto" [ngSwitch]="view">
-    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
-      [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
-      (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
-    </mwl-calendar-month-view>
-    <mwl-calendar-week-view id="weekview" (hourSegmentClicked)="hourClicked($event)" *ngSwitchCase="CalendarView.Week"
-      [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
-      (eventTimesChanged)="eventTimesChanged($event)">
-    </mwl-calendar-week-view>
-    <mwl-calendar-day-view id="dayview" (hourSegmentClicked)="hourClicked($event)" *ngSwitchCase="CalendarView.Day"
-      [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
-      (eventTimesChanged)="eventTimesChanged($event)">
-    </mwl-calendar-day-view>
-  </div>
+</div>
+
 </div>

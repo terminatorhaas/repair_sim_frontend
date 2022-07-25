@@ -10,9 +10,9 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 	selector: 'app-master',
 	template: `
     <app-navbar (newItemEvent)="logout($event)" [loggedIn]="loggedIn" [admin]="adminflag"></app-navbar>
-    <section>
-      <div class="container">
-        <router-outlet></router-outlet>
+    <section  style="background-color: #07162B;">
+      <div class="container" style="background-color: #07162B;">
+        <router-outlet style="background-color: #07162B;"></router-outlet>
       </div>
     </section>
   `
@@ -30,9 +30,6 @@ export class MasterComponent implements OnInit {
 	//get whether logged in for navbar and stuff
 	ngOnInit() {
 		this.loggedIn = !!this.authService.currentUserValue;
-		if(this.authService.currentUserValue.role==="admin"){
-			this.adminflag=true
-		}
 	}
 
 	public logout(newItemEvent: boolean): void {
