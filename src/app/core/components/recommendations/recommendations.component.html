@@ -23,7 +23,7 @@
 
         </div>
 
-        <div *ngFor="let event of events;">
+        <div *ngFor="let event of events; ; let i = index">
         <div class="row w-100 align-items-center">
 
             <div class="col-3 align-middle" style="height: 2rem;">
@@ -36,7 +36,7 @@
                 <span  style="color:#FFFFFF; font-size:larger">{{event.type_id.event_name}}</span>
             </div>
             <div class="col-3 align-middle" style="height: 2rem;">
-                <span  style="color:#FFFFFF; font-size:larger">{{event.time_taken}}</span>
+                <span  style="color:#FFFFFF; font-size:larger">{{differences[i]}}</span>
             </div>
 
         </div>

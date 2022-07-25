@@ -18,6 +18,7 @@ export class RecommendationsComponent implements OnInit {
 
   events = [];
   errorMessage: string;
+  differences = []
 
   //inject services
   constructor(
@@ -37,8 +38,33 @@ export class RecommendationsComponent implements OnInit {
     this.recommendationService.getRecommendationBackend("none").subscribe((data) => {
            console.log(data)
            this.events = []
+           var lastmin = null
+           var lastsec = null
+           var firstime = true
            data.forEach(element => {
+            const jahr = element.timestamp.substring(0, 4);
+            const monat = element.timestamp.substring(4, 6);
+            const tag = element.timestamp.substring(6, 8);
+            const stunde = element.timestamp.substring(8, 10);
+            const minute = element.timestamp.substring(10, 12);
+            const sekunde = element.timestamp.substring(12, 14);
+
+            element.timestamp = tag + "-" + monat + "-" + jahr + ", " +stunde + ":" + minute + ":" + sekunde
+
+            if(firstime==false){
+              
+
+              //this.differences.push((parseInt(element.timestamp) - parseInt(lastelement)))
+              this.differences.push(((minute-lastmin)*60 + (sekunde-lastsec)) + "s")
+            } else{
+              this.differences.push(0 +"s");
+            }
+            lastmin = minute
+            lastsec = sekunde
+
             this.events.push(element)
+
+            firstime = false;
            });
          });
     //only add Recommendation if it is not already present
