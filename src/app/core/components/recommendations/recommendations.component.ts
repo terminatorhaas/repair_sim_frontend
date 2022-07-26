@@ -38,6 +38,7 @@ export class RecommendationsComponent implements OnInit {
     this.recommendationService.getRecommendationBackend("none").subscribe((data) => {
            console.log(data)
            this.events = []
+           this.differences= []
            var lastmin = null
            var lastsec = null
            var firstime = true
